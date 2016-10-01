@@ -1,0 +1,445 @@
+[genuitec-file-id="wc1-12"],[genuitec-lp-path="/16_08_15_AnlysisMusic Maven Webapp/src/main/webapp/res/css/songlist.css"],[genuitec-lp-enabled=false]{
+  /* for codelive */
+}
+
+
+.main_song {
+	width: 100%;
+	height:950px;
+	float: left;
+	min-width: 930px;
+	max-width: 1250px
+}
+.main_song_space {
+	width: 98%;
+	height: 20px;
+	float: left
+}
+.main_song_title {
+	width: 98%;
+	height: 40px;
+	float: left;
+	line-height: 40px;
+	font-family: Microsoft Yahei;
+	background: #f9f9f9;
+}
+.main_song_title_space {
+	width: 10%;
+	height: 35px;
+	float: left;
+	background: white;
+}
+.main_song_title_title {
+	width: 20%;
+	height: 35px;
+	float: left;
+	background: white;
+}
+.main_song_title_singer {
+	width: 15%;
+	height: 35px;
+	float: left;
+	background: white;
+}
+.main_song_title_album {
+	width: 15%;
+	height: 35px;
+	float: left;
+	background: white;
+}
+.main_song_title_time {
+	width: 10%;
+	height: 35px;
+	float: left;
+	background: white;
+}
+.main_song_title_do {
+	width: 30%;
+	height: 35px;
+	float: left;
+	background: white;
+}
+.songlist {
+	width: 98%;
+	height: 880px;
+	float: left;
+}
+.songlist_singlesong {
+	width: 100%;
+	height: 40px;
+	float: left;
+	font-family:Helvetica;
+	font-size: 15px;
+}
+.songlist_singlesong_space {
+	width: 1%;
+	height: 40px;
+	float: left;
+	background: #f9f9f9;
+}
+.songlist_singlesong_main {
+	width: 98%;
+	height: 30px;
+	float: left;
+	background: white;
+	border: 0px solid white;
+	border-radius: 5px;
+	box-shadow: #CFCFCF 0px 0px 5px;
+	line-height: 30px;
+	
+}
+
+.songlist_singlesong_space {
+	width: 100%;
+	height: 10px;
+	float: left;
+	background: #f9f9f9;
+}
+.songlist_singlesong_main_space {
+	width: 10%;
+	height: 100%;
+	float: left;
+}
+.songlist_singlesong_main_title {
+	width: 20%;
+	height: 100%;
+	float: left;
+}
+.songlist_singlesong_main_singer {
+	width: 15%;
+	height: 100%;
+	float: left;
+}
+.songlist_singlesong_main_album {
+	width: 15%;
+	height: 100%;
+	float: left;
+}
+.songlist_singlesong_main_time {
+	width: 10%;
+	height: 100%;
+	float: left;
+}
+.songlist_singlesong_main_do {
+	width: 30%;
+	height: 100%;
+	float: left;
+}
+.songlist_singlesong_main_do_download {
+	width: 45px;
+	height: 30px;
+	float: left;
+	cursor: pointer;
+	color: #19CAAD;
+	font-size: 20px;
+}
+.turn_page{
+	width:100%;
+	height: 60px;
+	float:left;
+	
+}
+.turn_page_main{
+	width:98%;
+	height: 50px;
+	line-height:50px;
+	float:left;
+	font-family: Microsoft Yahei;
+	background:white;
+	border-radius: 5px;
+	box-shadow: #CFCFCF 0px 0px 10px;
+	font-size:18px;
+}
+.page_up{
+	width:50%;
+	float:left;
+	cursor: pointer;
+	text-align:center;
+}
+.page_up:hover{
+	background: #F4F4F4;
+	color:#909090;
+	transition: 500ms;
+}
+.page_up_connot{
+	width:50%;
+	float:left;
+	cursor: default;
+	text-align:center;
+	background:#F4F4F4;
+}
+.page_down{
+	width:50%;
+	float:right;
+	text-align:center;
+	cursor: pointer;
+}
+.page_down:hover{
+	background: #F4F4F4;
+	color:#909090;
+	transition: 500ms;
+}
+.left_space {
+	width: 1%;
+	float: left;
+	height: 100%;
+	min-width: 10px;
+}
+.all {
+	width: 100%;
+	height: 1280px;
+	background: #f9f9f9;
+}
+.left_bar_space {
+	width: 21%;
+	height: 100%;
+	float: left;
+	min-width: 265px
+}
+.main {
+	width: 78%;
+	height: 1000px;
+	float: left;
+	min-width: 930px
+}
+.top_bar {
+	width: 100%;
+	height: 90px;
+	float: left;
+	min-width: 930px;
+	max-width: 1250px
+}
+.top_bar_space {
+	whdth: 100%;
+	height: 20px;
+}
+.top_bar_main {
+	width: 100%;
+	height: 70px;
+	background: white;
+	border: 1px solid white;
+	box-shadow: #D8D8D8 -1px 1px 3px;
+}
+.top_bar_main_space {
+	width: 50px;
+	height: 100%;
+	float: left;
+}
+.top_bar_main_index {
+	width: 80px;
+	height: 100%;
+	float: left;
+	line-height: 70px;
+	text-align: center;
+	font-family: Microsoft Yahei;
+	font-size: 14px;
+	color: #9B9B9B
+}
+.top_bar_main_index:hover {
+	color: black;
+	background: #F4F4F4;
+	cursor: pointer;
+	border-radius: 5px
+}
+.top_bar_main_result {
+	width: 100px;
+	height: 100%;
+	float: left;
+	line-height: 70px;
+	text-align: center;
+	font-family: Microsoft Yahei;
+	font-size: 14px;
+}
+.top_bar_main_search {
+	width: 300px;
+	height: 100%;
+	float: right;
+	line-height: 60px;
+	text-align: center;
+	font-family: Microsoft Yahei;
+	font-size: 14px;
+}
+.search {
+	margin-top: 24px;
+	float: left;
+	width: 150px;
+	border: #9f9f9f 1px solid;
+}
+.search:hover {
+	border: #056DC3 1px solid;
+	width: 150px
+}
+.submit {
+	margin-top: 22px;
+	float: left;
+	width: 40px;
+	height: 23px;
+	margin-left: -1px;
+	color: #fff;
+	font: 14px "Microsoft YaHei", Verdana, Geneva, sans-serif;
+	border: 1px #FFF solid;
+	background-color: #056DC3;
+}
+.declaraction {
+	width: 100%;
+	text-align: center;
+	color: red;
+}
+.final {
+	width: 100%;
+	text-align: center;
+	color: #7F7F7F;
+}
+.explain {
+	width: 98%;
+	margin-left: 1%;
+}
+.left_bar {
+	position: fixed;
+	width: 22%;
+	z-index: 1049;
+	left: 0;
+	top: 0;
+	height: 100%;
+	background: #2a2a2a;
+	min-width: 265px;
+	background: URL( http://bluebamboo-10044313.file.myqcloud.com/res/pic/main_pic.jpg)
+}
+.left_space {
+	width: 1%;
+	float: left;
+	height: 100%;
+	min-width: 10px;
+}
+.left_bar_space {
+	width: 21%;
+	height: 100%;
+	float: left;
+	min-width: 265px
+}
+.top_bar {
+	width: 100%;
+	height: 90px;
+	float: left;
+	min-width: 930px;
+	max-width: 1250px
+}
+.top_bar_space {
+	whdth: 100%;
+	height: 20px;
+}
+.top_bar_main {
+	width: 100%;
+	height: 70px;
+	background: white;
+	border: 1px solid white;
+	box-shadow: #D8D8D8 -1px 1px 3px;
+}
+.top_bar_main_space {
+	width: 50px;
+	height: 100%;
+	float: left;
+}
+.top_bar_main_index {
+	width: 80px;
+	height: 100%;
+	float: left;
+	line-height: 70px;
+	text-align: center;
+	font-family: Microsoft Yahei;
+	font-size: 14px;
+	color: #9B9B9B
+}
+.top_bar_main_index:hover {
+	color: black;
+	background: #F4F4F4;
+	cursor: pointer;
+	border-radius: 5px
+}
+.top_bar_main_result {
+	width: 100px;
+	height: 100%;
+	float: left;
+	line-height: 70px;
+	text-align: center;
+	font-family: Microsoft Yahei;
+	font-size: 14px;
+}
+.top_bar_main_search {
+	width: 300px;
+	height: 100%;
+	float: right;
+	line-height: 60px;
+	text-align: center;
+	font-family: Microsoft Yahei;
+	font-size: 14px;
+}
+.search {
+	margin-top: 24px;
+	float: left;
+	width: 150px;
+	border: #9f9f9f 1px solid;
+}
+.search:hover {
+	border: #056DC3 1px solid;
+	width: 150px
+}
+.submit {
+	margin-top: 22px;
+	float: left;
+	width: 40px;
+	height: 23px;
+	margin-left: -1px;
+	color: #fff;
+	font: 14px "Microsoft YaHei", Verdana, Geneva, sans-serif;
+	border: 1px #FFF solid;
+	background-color: #056DC3;
+}
+.blewbar {
+	width: 100%;
+	height: 180px;
+	background: white;
+	border: 1px solid white;
+	box-shadow: #D8D8D8 -1px 1px 3px;
+	margin-top: 1000px;
+	font: 14px "Microsoft YaHei", Verdana, Geneva, sans-serif;
+	color: #61D3F0;
+}
+.declaraction {
+	width: 100%;
+	text-align: center;
+	color: red;
+}
+.final {
+	width: 100%;
+	text-align: center;
+	color: #7F7F7F;
+}
+.explain {
+	width: 98%;
+	margin-left: 1%;
+}
+.img128{
+	background-image:url("../../res/pic/128.png");
+	background-size: 100% 100%;
+}
+.img192{
+	background-image:url("../../res/pic/192.png");
+	background-size: 100% 100%;
+}
+.img320{
+	background-image:url("../../res/pic/320.png");
+	background-size: 100% 100%;
+}
+.imgFlac{
+	background-image:url("../../res/pic/flac.png");
+	background-size: 100% 100%;
+}
+.imgApe{
+	background-image:url("../../res/pic/ape.png");
+	background-size: 100% 100%;
+}
+.img3rd{
+	background-image:url("../../res/pic/3rd.png");
+	background-size: 100% 100%;
+}
