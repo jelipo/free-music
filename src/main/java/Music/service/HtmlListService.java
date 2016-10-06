@@ -52,10 +52,16 @@ public class HtmlListService implements HtmlList {
 	}
 
 	private String qqMusic(MainFormPojo form) {
+		String keyword = null;
+		try {
+			keyword=URLEncoder.encode(form.getKeyword(), "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		String Url = "http://s.music.qq.com/fcgi-bin/music_search_new_platform?t=0&n=" + pagesize
 				+ "&aggr=1&cr=1&loginUin=0&format=json&inCharset=GB2312&outCharset=utf-8&notice=0"
 				+ "&platform=jqminiframe.json&needNewCode=0&p=" + form.getPage()
-				+ "&catZhida=0&remoteplace=sizer.newclient.next_song&w=" + form.getKeyword();
+				+ "&catZhida=0&remoteplace=sizer.newclient.next_song&w=" + keyword;
 		httpGet.setUrl(Url);
 		HttpResult result=httpGet.send();
 		return result.getResult();
@@ -82,8 +88,14 @@ public class HtmlListService implements HtmlList {
 	}
 
 	private String kgMusic(MainFormPojo form) {
+		String keyword = null;
+		try {
+			keyword=URLEncoder.encode(form.getKeyword(), "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		String url = "http://songsearch.kugou.com/song_search_v2?"
-				+ "keyword="+form.getKeyword()+"&page="+form.getPage()+"&pagesize="+pagesize+"&filter=0&bitrate=0&isfuzzy=0&"
+				+ "keyword="+keyword+"&page="+form.getPage()+"&pagesize="+pagesize+"&filter=0&bitrate=0&isfuzzy=0&"
 						+ "tag=em&inputtype=2&platform=PcFilter&userid=&clientver=8060&iscorrection=3";
 		httpGet.setUrl(url);
 		HttpResult result=httpGet.send();

@@ -16,6 +16,9 @@
     <slf4j.version>1.7.7</slf4j.version>
     <log4j.version>1.2.17</log4j.version>
     <jackson.version>2.7.6</jackson.version>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <encoding>UTF-8</encoding>
   </properties>
   <dependencies>
     <!-- 引入jedis包，redis的客户端驱动 -->

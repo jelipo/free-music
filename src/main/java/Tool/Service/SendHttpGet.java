@@ -70,6 +70,7 @@ public class SendHttpGet  {
             httpConn.setRequestProperty("Charset", this.encoding);
             Set set = this.headers.entrySet();
             Iterator iterator = set.iterator();
+
             while (iterator.hasNext()) {
                 Map.Entry mapentry = (Map.Entry) iterator.next();
                 httpConn.setRequestProperty(mapentry.getKey().toString(), mapentry.getValue().toString());
