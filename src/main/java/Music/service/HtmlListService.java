@@ -75,16 +75,16 @@ public class HtmlListService implements HtmlList {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		httpPost.setUrl("http://music.163.com/api/search/pc");
-		httpPost.addHeader("Cookie", "appver=2.0.2");
-		httpPost.addHeader("Referer", "http://music.163.com");
-		httpPost.addParam("s", keyword);
-		httpPost.addParam("sub", "false");
-		httpPost.addParam("limit", "20");
-		httpPost.addParam("type", "1");
-		httpPost.addParam("offset", form.getPage());
-		HttpResult result=httpPost.send();
-		return result.getResult();
+		SendPost post=new SendPost("http://music.163.com/api/search/pc","utf-8");
+		post.addHttpHeader("Cookie", "appver=2.0.2");
+		post.addHttpHeader("Referer", "http://music.163.com");
+		post.addPostText("s", keyword);
+
+		post.addPostText("sub", "false");
+		post.addPostText("limit", "20");
+		post.addPostText("type", "1");
+		post.addPostText("offset", form.getPage());
+		return post.send();
 	}
 
 	private String kgMusic(MainFormPojo form) {

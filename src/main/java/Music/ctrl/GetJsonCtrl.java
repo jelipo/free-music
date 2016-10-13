@@ -25,6 +25,7 @@ public class GetJsonCtrl {
 	@RequestMapping({ "/searchjson" })
 	public JSONObject getJson(@ModelAttribute("MainFormPojo") MainFormPojo form){
 		JSONObject pristineJson=htmllist.getPristineJson(form);
+		System.out.println(pristineJson);
 		JSONObject normJson=pristine2NormJson.getNormJson(pristineJson, form);
 		return normJson;
 	}

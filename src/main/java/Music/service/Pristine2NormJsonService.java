@@ -78,11 +78,15 @@ public class Pristine2NormJsonService implements Pristine2NormJson {
 		newJson.put("list", newSongList);
 		newJson.put("code", "200");
 		newJson.put("type", "wy");
+		System.out.println(newJson);
 		return newJson;
 	}
 
 	private  JSONObject qqMusicChange(JSONObject json) {
 		JSONArray songlist = json.getJSONObject("data").getJSONObject("song").getJSONArray("list");
+		if (songlist.size()==0){
+			songlist=json.getJSONObject("data").getJSONObject("semantic").getJSONArray("list");
+		}
 		JSONArray newsonglist = new JSONArray();
 		for (int i = 0; i < songlist.size(); i++) {
 			JSONObject newsinglesong = new JSONObject();

@@ -25,8 +25,6 @@
 				</property>
 			</bean>
 		</mvc:message-converters>
-
-
 	</mvc:annotation-driven>
 
 	<!-- 拦截到静态资源时找到相应的目录 -->
