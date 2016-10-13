@@ -78,7 +78,6 @@ public class Pristine2NormJsonService implements Pristine2NormJson {
 		newJson.put("list", newSongList);
 		newJson.put("code", "200");
 		newJson.put("type", "wy");
-		System.out.println(newJson);
 		return newJson;
 	}
 
