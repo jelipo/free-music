@@ -19,8 +19,6 @@
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
 <link rel="stylesheet" href="res/css/songlist.css" type="text/css">
-<link rel="stylesheet"
-	href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="res/dist/ripple.min.css" type="text/css">
 <!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
