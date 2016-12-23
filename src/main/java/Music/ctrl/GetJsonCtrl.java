@@ -22,14 +22,14 @@ public class GetJsonCtrl {
 	private Pristine2NormJson pristine2NormJson;
 	
 	@ResponseBody
-	@RequestMapping({ "/searchjson" })
+	@RequestMapping({ "/searchjson.do" })
 	public JSONObject getJson(@ModelAttribute("MainFormPojo") MainFormPojo form){
 		JSONObject pristineJson=htmllist.getPristineJson(form);
 		JSONObject normJson=pristine2NormJson.getNormJson(pristineJson, form);
 		return normJson;
 	}
 	@ResponseBody
-	@RequestMapping({ "/getPristineJson" })
+	@RequestMapping({ "/getPristineJson.do" })
 	public JSONObject getPristineJson(@ModelAttribute("MainFormPojo") MainFormPojo form){
 		JSONObject pristineJson=htmllist.getPristineJson(form);
 		return pristineJson;

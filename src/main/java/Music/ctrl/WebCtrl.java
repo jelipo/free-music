@@ -30,15 +30,15 @@ public class WebCtrl {
 		}
 		
 	}
-	@RequestMapping({ "/MainSearch" })
+	@RequestMapping({ "/MainSearch.do" })
 	public String MainSearch(@ModelAttribute("MainFormPojo") MainFormPojo form, RedirectAttributes redirect) {
 		redirect.addAttribute("keyword", form.getKeyword());
 		redirect.addAttribute("musictype", form.getMusictype());
 		redirect.addAttribute("page", form.getPage());
-		return "redirect:search";
+		return "redirect:search.do";
 	}
 
-	@RequestMapping({ "/search" })
+	@RequestMapping({ "/search.do" })
 	public String searear(@ModelAttribute("MainFormPojo") MainFormPojo form, Model model)throws Exception {
 		model.addAttribute("musictype", form.getMusictype());
 		model.addAttribute("keyword",form.getKeyword());
@@ -52,15 +52,15 @@ public class WebCtrl {
 		return "wapindex";
 	}
 
-	@RequestMapping({ "/wap/MainSearch" })
+	@RequestMapping({ "/wap/MainSearch.do" })
 	public String WapMainSearch(@ModelAttribute("IndexForm") MainFormPojo form, RedirectAttributes redirect) {
 		redirect.addAttribute("keyword", form.getKeyword().replace(" ", "%20"));
 		redirect.addAttribute("musictype", form.getMusictype());
 		redirect.addAttribute("page", form.getPage());
-		return "redirect:search";
+		return "redirect:search.do";
 	}
 
-	@RequestMapping({ "/wap/search" })
+	@RequestMapping({ "/wap/search.do" })
 	public String wapsearch(@ModelAttribute("IndexForm") MainFormPojo form, Model model)throws Exception {
 		model.addAttribute("musictype", form.getMusictype());
 		model.addAttribute("keyword",form.getKeyword());

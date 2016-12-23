@@ -101,8 +101,8 @@
 </head>
 
 <body style="background:#24a9e1;color:#FFFFFF;">
-<div class="title" data-genuitec-lp-enabled="false" data-genuitec-file-id="wc1-2" data-genuitec-path="/16_08_15_AnlysisMusic Maven Webapp/src/main/webapp/WEB-INF/jsp/index.jsp">自由的音乐</div>
-<form action="MainSearch" method="post" class="form">
+<div class="title" data-genuitec-lp-enabled="false" data-genuitec-file-id="wc1-2" >自由的音乐</div>
+<form action="MainSearch.do" method="post" class="form">
   <div class="mainselect">
     <input type="hidden" name="page" value="1" >
     <select class="cs-select cs-skin-underline select" name="musictype">

@@ -19,7 +19,7 @@ public class DownloadCtrl {
 	
 	@Resource(name="Music/Download")
 	private Download download;
-	@RequestMapping("downloadurl")
+	@RequestMapping("downloadurl.do")
 	private String downloadurl(@ModelAttribute("DownloadPojo") DownloadPojo pojo,HttpServletRequest request){
 		String url=download.getRealUrl(pojo);
 		return "redirect:" + url;

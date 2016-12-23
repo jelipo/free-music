@@ -5,7 +5,7 @@ addHtml(keyword,musictype,page);
 function addHtml(keyword,musictype,page){
 	var json;
 	$.ajax({
-		url : "searchjson?keyword=" + keyword + "&musictype=" + musictype+ "&page=" + page,
+		url : "searchjson.do?keyword=" + keyword + "&musictype=" + musictype+ "&page=" + page,
 		type : 'get',
 		async : false, // 默认为true 异步
 		error : function() {},
