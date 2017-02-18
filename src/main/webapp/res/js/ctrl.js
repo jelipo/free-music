@@ -78,42 +78,42 @@ function qqMusic(list,musictype) {
 		return html;
 	}
 	if(list.common=="320000"){
-		html="<a href=\"downloadurl?id="+list.id+"&musictype="+musictype+"&filetype=0\" target=\"_blank\" " +
+		html="<a href=\"downloadurl.do?id="+list.id+"&musictype="+musictype+"&filetype=0\" target=\"_blank\" " +
 				"class=\"songlist_singlesong_main_do_download img320\"></a>";
 	}else if(list.common=="192000"){
-		html="<a href=\"downloadurl?id="+list.id+"&musictype="+musictype+"&filetype=0\" target=\"_blank\" " +
+		html="<a href=\"downloadurl.do?id="+list.id+"&musictype="+musictype+"&filetype=0\" target=\"_blank\" " +
 		"class=\"songlist_singlesong_main_do_download img192\"></a>";
 	}else{
-		html="<a href=\"downloadurl?id="+list.id+"&musictype="+musictype+"&filetype=0\" target=\"_blank\" " +
+		html="<a href=\"downloadurl.do?id="+list.id+"&musictype="+musictype+"&filetype=0\" target=\"_blank\" " +
 		"class=\"songlist_singlesong_main_do_download img128 \"></a>";
 	}
 	if(list.flac>0){
-		html=html+"<a href=\"downloadurl?id="+list.id+"&musictype="+musictype+"&filetype=flac\" target=\"_blank\" " +
+		html=html+"<a href=\"downloadurl.do?id="+list.id+"&musictype="+musictype+"&filetype=flac\" target=\"_blank\" " +
 		"class=\"songlist_singlesong_main_do_download imgflac \"></a>";
 	}
 	if(list.ape>0){
-		html=html+"<a href=\"downloadurl?id="+list.id+"&musictype="+musictype+"&filetype=ape\" target=\"_blank\" " +
+		html=html+"<a href=\"downloadurl.do?id="+list.id+"&musictype="+musictype+"&filetype=ape\" target=\"_blank\" " +
 		"class=\"songlist_singlesong_main_do_download imgape\"></a>";
 	}
 	return html;
 }
 function wyMusic(list,musictype) {
-	var html="<a href=\"downloadurl?id="+list.id+"&musictype="+musictype+"&filetype=0\" target=\"_blank\" " +
+	var html="<a href=\"downloadurl.do?id="+list.id+"&musictype="+musictype+"&filetype=0\" target=\"_blank\" " +
 	"class=\"songlist_singlesong_main_do_download img320\"></a>";
 	return html;
 }
 function kgMusic(list,musictype) {
 	var html="";
 	if(list.m128!=0){
-		html=html+"<a href=\"downloadurl?id="+list.m128+"&musictype="+musictype+"&filetype=0\" target=\"_blank\" " +
+		html=html+"<a href=\"downloadurl.do?id="+list.m128+"&musictype="+musictype+"&filetype=0\" target=\"_blank\" " +
 		"class=\"songlist_singlesong_main_do_download img128\"></a>";
 	}
 	if(list.m320!=0){
-		html=html+"<a href=\"downloadurl?id="+list.m320+"&musictype="+musictype+"&filetype=0\" target=\"_blank\" " +
+		html=html+"<a href=\"downloadurl.do?id="+list.m320+"&musictype="+musictype+"&filetype=0\" target=\"_blank\" " +
 		"class=\"songlist_singlesong_main_do_download img320\"></a>";
 	}
 	if(list.SQ!=0){
-		html=html+"<a href=\"downloadurl?id="+list.SQ+"&musictype="+musictype+"&filetype=0\" target=\"_blank\" " +
+		html=html+"<a href=\"downloadurl.do?id="+list.SQ+"&musictype="+musictype+"&filetype=0\" target=\"_blank\" " +
 		"class=\"songlist_singlesong_main_do_download imgflac\"></a>";
 	}
 	return html;

@@ -107,7 +107,7 @@
     <input type="hidden" name="page" value="1" >
     <select class="cs-select cs-skin-underline select" name="musictype">
       <option value="1">请选择</option>
-      <option value="1">QQ音乐</option>
+      <option value="1">QQ音乐1</option>
       <option value="2">网易音乐</option>
       <option value="3">酷狗音乐</option>
     </select>

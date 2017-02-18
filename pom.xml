@@ -1,32 +1,25 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>cao</groupId>
-  <artifactId>Music</artifactId>
+  <groupId>cao.free</groupId>
+  <artifactId>16_08_15_NewAnlysisMusic</artifactId>
   <packaging>war</packaging>
-  <version>1.0-SNAPSHOT</version>
-  <name>Music Maven Webapp</name>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>16_08_15_NewAnlysisMusic</name>
   <url>http://maven.apache.org</url>
   <properties>
     <!-- spring版本号 -->
-    <spring.version>4.3.2.RELEASE</spring.version>
+    <spring.version>4.3.6.RELEASE</spring.version>
     <!-- mybatis版本号 -->
-    <mybatis.version>3.4.1</mybatis.version>
+    <mybatis.version>3.3.1</mybatis.version>
     <!-- log4j日志文件管理包版本 -->
     <slf4j.version>1.7.7</slf4j.version>
     <log4j.version>1.2.17</log4j.version>
     <jackson.version>2.7.6</jackson.version>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <encoding>UTF-8</encoding>
-  </properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+</properties>
   <dependencies>
-    <!-- 引入jedis包，redis的客户端驱动 -->
-    <dependency>
-      <groupId>redis.clients</groupId>
-      <artifactId>jedis</artifactId>
-      <version>2.9.0</version>
-    </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -34,6 +27,14 @@
       <!-- 表示开发的时候引入，发布的时候不会加载此包 -->
       <scope>test</scope>
     </dependency>
+
+    <!--HTTP Client包-->
+    <dependency>
+      <groupId>com.squareup.okhttp3</groupId>
+      <artifactId>okhttp</artifactId>
+      <version>3.6.0</version>
+    </dependency>
+    <!--HTTP Client包-->
     <!-- spring核心包 -->
     <dependency>
       <groupId>org.springframework</groupId>
@@ -95,7 +96,7 @@
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis-spring</artifactId>
-      <version>1.3.0</version>
+      <version>1.2.2</version>
     </dependency>
     <!-- 导入java ee jar 包 -->
     <dependency>
@@ -103,18 +104,8 @@
       <artifactId>javaee-api</artifactId>
       <version>7.0</version>
     </dependency>
-    <!-- 导入Mysql数据库链接jar包 -->
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>5.1.39</version>
-    </dependency>
-    <!-- 导入dbcp的jar包，用来在applicationContext.xml中配置数据库 -->
-    <dependency>
-      <groupId>commons-dbcp</groupId>
-      <artifactId>commons-dbcp</artifactId>
-      <version>1.2.2</version>
-    </dependency>
+
+
     <!-- JSTL标签类 -->
     <dependency>
       <groupId>jstl</groupId>
@@ -130,11 +121,10 @@
     </dependency>
 
 
-    <!-- 格式化对象，方便输出日志 -->
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>fastjson</artifactId>
-      <version>1.2.16</version>
+      <version>1.2.24</version>
     </dependency>
 
 
@@ -150,22 +140,7 @@
       <version>${slf4j.version}</version>
     </dependency>
     <!-- log end -->
-    <!-- 映入JSON -->
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-core</artifactId>
-      <version>${jackson.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>${jackson.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-annotations</artifactId>
-      <version>${jackson.version}</version>
-    </dependency>
+
     <!-- 上传组件包 -->
     <dependency>
       <groupId>commons-fileupload</groupId>
@@ -198,8 +173,8 @@
       <version>1.9.13</version>
     </dependency>
   </dependencies>
+
   <build>
     <finalName>Music</finalName>
   </build>
 </project>
-

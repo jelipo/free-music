@@ -6,5 +6,5 @@ import Music.pojo.MainFormPojo;
 
 public interface HtmlList {
 	
-	public JSONObject getPristineJson(MainFormPojo form);
+	public String getPristineJson(MainFormPojo form);
 }

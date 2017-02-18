@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd
@@ -12,32 +12,33 @@
 	<context:component-scan base-package="Music,Tool" />
 
 	<mvc:annotation-driven>
-		<!-- 配置ResponseBody为fastjson -->
-		<mvc:message-converters register-defaults="true">
-			<bean
-				class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
-				<property name="supportedMediaTypes" value="text/json;charset=UTF-8" />
-				<property name="features">
-					<array>
-						<value>WriteMapNullValue</value>
-						<value>WriteNullStringAsEmpty</value>
-					</array>
+		<mvc:message-converters>
+			<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4">
+				<!-- MediaTypes -->
+				<property name="supportedMediaTypes">
+					<list>
+						<value>application/json</value>
+					</list>
 				</property>
+				<!-- FastJsonConfig -->
+				<property name="fastJsonConfig" ref="fastJsonConfig" />
 			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
+
+	<mvc:default-servlet-handler />
 
 	<!-- 拦截到静态资源时找到相应的目录 -->
 	<mvc:resources mapping="/res/**" location="/res/" />
 
 	<!-- 配置视图名称解析器 -->
 	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-		p:viewClass="org.springframework.web.servlet.view.JstlView" p:prefix="/WEB-INF/jsp/"
-		p:suffix=".jsp" />
+			class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+			p:viewClass="org.springframework.web.servlet.view.JstlView" p:prefix="/WEB-INF/jsp/"
+			p:suffix=".jsp" />
 
 	<bean id="config"
-		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		  class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="locations">
 			<list>
 				<value>classpath:config.properties</value>
@@ -45,8 +46,21 @@
 		</property>
 	</bean>
 	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+		  class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
 		<property name="properties" ref="config" />
+
 	</bean>
+
+	<bean id="fastJsonConfig" class="com.alibaba.fastjson.support.config.FastJsonConfig">
+		<!-- Default charset -->
+		<property name="charset" value="UTF-8" />
+		<!-- Default dateFormat -->
+		<property name="dateFormat" value="yyyy-MM-dd HH:mm:ss" />
+
+	</bean>
+
+	<!-- 处理器 -->
+	<!-- <bean name="/hello" class="helloworld.helloworld" /> -->
+
 </beans>
 

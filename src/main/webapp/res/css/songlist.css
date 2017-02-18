@@ -303,7 +303,7 @@
 	height: 100%;
 	background: #2a2a2a;
 	min-width: 265px;
-	background: URL( http://bluebamboo-10044313.file.myqcloud.com/res/pic/main_pic.jpg)
+	background-image: URL('https://bluebamboo-10044313.file.myqcloud.com/res/pic/main_pic.jpg');
 }
 .left_space {
 	width: 1%;
