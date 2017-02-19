@@ -28,6 +28,16 @@ public class QQDownload implements MusicDownload {
         return url;
     }
 
+    @Override
+    public String getMvUrl(String id, String quality) {
+        return null;
+    }
+
+    @Override
+    public String getImgUrl(String id, String quality) {
+        return null;
+    }
+
     private String getKey(long nowTime, long guid) {
         String url = "http://base.music.qq.com/fcgi-bin/fcg_musicexpress.fcg?json=3&guid=" + guid;
         String html = httpTool.getJsonResultWithGet(url);

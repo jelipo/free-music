@@ -13,7 +13,7 @@ public class Pristine2NormJsonService implements Pristine2NormJson {
 	@Override
 	public JSONObject getNormJson(JSONObject pristine, MainFormPojo form) {
 		JSONObject result = null;
-		switch (form.getMusictype()) {
+		switch (form.getType()) {
 		case "1": // qq音乐搜索
 			result = qqMusicChange(pristine);
 			break;

@@ -19,13 +19,13 @@ import java.util.Map;
 public class GetJsonService {
 
     public Map getFormatJson(MainFormPojo mainFormPojo) {
-        MusicServices musicService=getService(mainFormPojo.getMusictype());
+        MusicServices musicService=getService(mainFormPojo.getType());
         JSONArray array=musicService.getFormatJson(mainFormPojo);
         return PackingResult.toSuccessMap(array);
     }
 
     public String getPristineJson(MainFormPojo mainFormPojo) {
-        MusicServices musicService=getService(mainFormPojo.getMusictype());
+        MusicServices musicService=getService(mainFormPojo.getType());
         String  pristineJson = musicService.getSearchResult(mainFormPojo);
         return pristineJson;
     }

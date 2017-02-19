@@ -46,6 +46,7 @@ public class QQService implements MusicServices {
             json.put("sogg",single.getSizeogg()==0?0:single.getSongmid());
             json.put("SQ",0);
             json.put("time",single.getInterval()/60+":"+single.getInterval()%60);
+            json.put("mv",0);
             array.add(json);
         }
         return array;

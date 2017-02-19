@@ -12,35 +12,18 @@ import Music.pojo.MainFormPojo;
 @Controller
 public class WebCtrl {
 
-	@RequestMapping({ "/" })
-	public String index(HttpServletRequest request) {
-		String ua = request.getHeader("User-Agent");
-		int isMobile=0;
-		String[] list={"Mobile","mobile","Phone","Android","phone","android"};
-		for(int i=0;i<list.length;i++){
-			if(ua.contains(list[i])){
-				isMobile=1;
-				break;
-			}
-		}
-		if (isMobile==0) {
-			return "index";
-		}else{
-			return "wap/wapindex";
-		}
-		
-	}
+
 	@RequestMapping({ "/MainSearch.do" })
 	public String MainSearch(@ModelAttribute("MainFormPojo") MainFormPojo form, RedirectAttributes redirect) {
 		redirect.addAttribute("keyword", form.getKeyword());
-		redirect.addAttribute("musictype", form.getMusictype());
+		redirect.addAttribute("type", form.getType());
 		redirect.addAttribute("page", form.getPage());
 		return "redirect:search.do";
 	}
 
 	@RequestMapping({ "/search.do" })
 	public String searear(@ModelAttribute("MainFormPojo") MainFormPojo form, Model model)throws Exception {
-		model.addAttribute("musictype", form.getMusictype());
+		model.addAttribute("type", form.getType());
 		model.addAttribute("keyword",form.getKeyword());
 		model.addAttribute("page",form.getPage());
 		return "search";
@@ -55,14 +38,14 @@ public class WebCtrl {
 	@RequestMapping({ "/wap/MainSearch.do" })
 	public String WapMainSearch(@ModelAttribute("IndexForm") MainFormPojo form, RedirectAttributes redirect) {
 		redirect.addAttribute("keyword", form.getKeyword().replace(" ", "%20"));
-		redirect.addAttribute("musictype", form.getMusictype());
+		redirect.addAttribute("type", form.getType());
 		redirect.addAttribute("page", form.getPage());
 		return "redirect:search.do";
 	}
 
 	@RequestMapping({ "/wap/search.do" })
 	public String wapsearch(@ModelAttribute("IndexForm") MainFormPojo form, Model model)throws Exception {
-		model.addAttribute("musictype", form.getMusictype());
+		model.addAttribute("type", form.getType());
 		model.addAttribute("keyword",form.getKeyword());
 		model.addAttribute("page",form.getPage());
 		return "wap/wapsearch";

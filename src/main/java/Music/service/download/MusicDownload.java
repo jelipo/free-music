@@ -7,4 +7,7 @@ public interface MusicDownload {
 
     String getDownloadUrl(String id, String quality);
 
+    String getMvUrl(String id, String quality);
+
+    String getImgUrl(String id, String quality);
 }

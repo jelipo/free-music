@@ -17,6 +17,14 @@ public class DownloadService{
 		return url;
 	}
 
+	public String getMvUrl( String type,String quality,String id){
+		MusicDownload musicDownload=getService(type);
+		String url=musicDownload.getMvUrl(id,quality);
+		return url;
+	}
+
+
+
 
 	private MusicDownload getService(String type){
 		MusicDownload musicDownload = null;

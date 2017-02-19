@@ -36,11 +36,12 @@ public class KgService implements MusicServices {
             json.put("name",single.getSongName().replace("<em>", "").replace("</em>", ""));
             json.put("singer",single.getSingerName().replace("<em>", "").replace("</em>", ""));
             json.put("album",single.getAlbumName().replace("<em>", "").replace("</em>", ""));
-            json.put("s128",single.getFileHash());
-            json.put("s320",single.getHQFileHash());
+            json.put("s128",single.getFileHash().replace("0","").equals("")?0:single.getFileHash());
+            json.put("s320",single.getHQFileHash().replace("0","").equals("")?0:single.getFileHash());
             json.put("sogg",0);
             json.put("SQ",single.getSQFileHash());
             json.put("time",Integer.toString(single.getHQDuration()/60)+":"+single.getHQDuration()%60);
+            json.put("mv",single.getMvHash());
             array.add(json);
         }
         return array;

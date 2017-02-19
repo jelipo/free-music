@@ -24,10 +24,20 @@ public class WyDownload implements MusicDownload {
         html = NetUtil.GetEncHtml("http://music.163.com/weapi/song/enhance/player/url?csrf_token=", text, true);
         JSONObject json = JSON.parseObject(html);
         if (json.getJSONArray("data").getJSONObject(0).getInteger("code")==200){
-            return json.getString("url");
+            return json.getJSONArray("data").getJSONObject(0).getString("url");
         }else {
             return  GetLostPlayUrl(id, realQuality);
         }
+    }
+
+    @Override
+    public String getMvUrl(String id, String quality) {
+        return null;
+    }
+
+    @Override
+    public String getImgUrl(String id, String quality) {
+        return null;
     }
 
     public static String GetLostPlayUrl(String id, String quality) {

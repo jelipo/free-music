@@ -2,7 +2,7 @@ package Music.pojo;
 
 public class MainFormPojo {
 	String keyword;
-	String musictype;
+	String type;
 	String page;
 
 	public String getKeyword() {
@@ -21,11 +21,11 @@ public class MainFormPojo {
 		this.page = page;
 	}
 
-	public String getMusictype() {
-		return musictype;
+	public String getType() {
+		return type;
 	}
 
-	public void setMusictype(String musictype) {
-		this.musictype = musictype;
+	public void setType(String type) {
+		this.type = type;
 	}
 }

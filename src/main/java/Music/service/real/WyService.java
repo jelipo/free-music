@@ -60,6 +60,7 @@ public class WyService implements MusicServices {
             json.put("s320",single.getId());
             json.put("SQ",0);
             json.put("time",(single.getDt()/1000)/60+":"+(single.getDt()/1000)%60);
+            json.put("mv",0);
             array.add(json);
         }
         return array;
