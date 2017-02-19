@@ -2,20 +2,29 @@ package Music.service.download;
 
 import Music.pojo.wy.NeteaseLostSong;
 import Music.service.real.NetUtil;
+import Tool.HttpTool;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.springframework.stereotype.Service;
 import sun.misc.BASE64Encoder;
 
+import javax.annotation.Resource;
+import java.io.IOException;
+import java.lang.reflect.Array;
 import java.security.MessageDigest;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
-/**
- * Created by cao on 2017/2/17.
- */
+
 @Service("Music/service/download/WyDownload")
 public class WyDownload implements MusicDownload {
+
+    @Resource(name = "Tool/HttpTool")
+    private HttpTool httpTool;
+
     @Override
     public String getDownloadUrl(String id, String quality) {
         String realQuality="320000";
@@ -32,7 +41,33 @@ public class WyDownload implements MusicDownload {
 
     @Override
     public String getMvUrl(String id, String quality) {
-        return null;
+        String sendUrl = "http://music.163.com/api/song/mv?id=" + id+ "&type=mp4";
+        OkHttpClient httpClient = httpTool.getHttpClient();
+        Request request = new Request.Builder().url(sendUrl)
+                .addHeader("Cookie", "__remember_me=true; MUSIC_U=5f9d910d66cb2440037d1c68e6972ebb9f15308b56bfeaa4545d34fbabf71e0f36b9357ab7f474595690d369e01fbb9741049cea1c6bb9b6; __csrf=8ea789fbbf78b50e6b64b5ebbb786176; os=uwp; osver=10.0.10586.318; appver=1.2.1; deviceId=0e4f13d2d2ccbbf31806327bd4724043")
+                .build();
+        Response response = null;
+        try {
+            response = httpClient.newCall(request).execute();
+            String html=response.body().string();
+            JSONObject json=JSONObject.parseObject(html);
+            JSONArray array=json.getJSONArray("mvs");
+            Map<Integer ,JSONObject> map=new HashMap();
+            int arraySize=array.size();
+            int arr[]=new int[arraySize];
+            for (int i=0;i<arraySize;i++){
+                JSONObject single=array.getJSONObject(i);
+                arr[i]=single.getInteger("br");
+                map.put(arr[i],single);
+            }
+            Arrays.sort(arr);
+            map.get(arr[arraySize-1]);
+            JSONObject bigJson=map.get(arr[arraySize-1]);;
+            return bigJson.getString("mvurl");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     @Override
