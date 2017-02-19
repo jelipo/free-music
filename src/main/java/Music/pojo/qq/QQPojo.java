@@ -17,7 +17,7 @@ public class QQPojo {
     private String songmid;
     private String songname;
     private String songname_hilight;
-
+    private String vid;
     private String strMediaMid;
     //专辑名
     private String albumname;
@@ -128,5 +128,11 @@ public class QQPojo {
         this.albumname = albumname;
     }
 
+    public String getVid() {
+        return vid;
+    }
 
+    public void setVid(String vid) {
+        this.vid = vid;
+    }
 }

@@ -32,13 +32,11 @@ public class KgDownload implements MusicDownload {
 
         String key = DigestUtils.md5Hex(id + "kugoumvcloud");
         String result = httpTool.getJsonResultWithGet("http://trackermv.kugou.com/interface/index?cmd=100&pid=6&ext=mp4&hash=" + id + "&quality=-1&key=" + key + "&backupdomain=1");
-        System.out.println("http://trackermv.kugou.com/interface/index?cmd=100&pid=6&ext=mp4&hash=" + id + "&quality=-1&key=" + key + "&backupdomain=1");
         if (result.contains("Bad key") || result.contains("The Resource Needs to be Paid")) {
             return "";
         }
         JSONObject mvData = JSONObject.parseObject(result).getJSONObject("mvdata");
         String mvurl;
-        System.out.println(mvData);
         if((mvurl = mvData.getJSONObject("sq").getString("downurl")) !=null){
             return mvurl;
         }else if((mvurl = mvData.getJSONObject("hd").getString("downurl")) !=null){
