@@ -28,27 +28,6 @@ public class WebCtrl {
 		model.addAttribute("page",form.getPage());
 		return "search";
 	}
-	
-	
-	@RequestMapping({ "/wap/" })
-	public String index1(HttpServletRequest request) {
-		return "wapindex";
-	}
 
-	@RequestMapping({ "/wap/MainSearch.do" })
-	public String WapMainSearch(@ModelAttribute("IndexForm") MainFormPojo form, RedirectAttributes redirect) {
-		redirect.addAttribute("keyword", form.getKeyword().replace(" ", "%20"));
-		redirect.addAttribute("type", form.getType());
-		redirect.addAttribute("page", form.getPage());
-		return "redirect:search.do";
-	}
-
-	@RequestMapping({ "/wap/search.do" })
-	public String wapsearch(@ModelAttribute("IndexForm") MainFormPojo form, Model model)throws Exception {
-		model.addAttribute("type", form.getType());
-		model.addAttribute("keyword",form.getKeyword());
-		model.addAttribute("page",form.getPage());
-		return "wap/wapsearch";
-	}
 	
 }

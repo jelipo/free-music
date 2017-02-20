@@ -31,7 +31,12 @@ public class NetUtil {
 
     public static String GetEncHtml(String url, String text, boolean needCookie) {
 
-        String param = encryptedRequest(text);
+        String param = null;
+        try {
+            param = encryptedRequest(text);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         assert param != null;
         RequestBody requestBody = RequestBody.create(Content_Type, param);
         Request.Builder builder = new Request.Builder().url(url).post(requestBody).headers(headers);
@@ -116,7 +121,7 @@ public class NetUtil {
     }
 
     //based on [darknessomi/musicbox](https://github.com/darknessomi/musicbox)
-    static String encryptedRequest(String text) {
+    static String encryptedRequest(String text) throws UnsupportedEncodingException {
         String secKey = createSecretKey(16);
         String encText = aesEncrypt(aesEncrypt(text, nonce), secKey);
         String encSecKey = rsaEncrypt(secKey, pubKey, modulus);
@@ -138,7 +143,7 @@ public class NetUtil {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
 
-            byte[] encrypted = cipher.doFinal(text.getBytes());
+            byte[] encrypted = cipher.doFinal(text.getBytes("UTF-8"));
 
             return Base64.getEncoder().encodeToString(encrypted);
         } catch (Exception ex) {
@@ -148,9 +153,9 @@ public class NetUtil {
     }
 
     //based on [darknessomi/musicbox](https://github.com/darknessomi/musicbox)
-    private static String rsaEncrypt(String text, String pubKey, String modulus) {
+    private static String rsaEncrypt(String text, String pubKey, String modulus) throws UnsupportedEncodingException {
         text = new StringBuilder(text).reverse().toString();
-        BigInteger rs = new BigInteger(String.format("%x", new BigInteger(1, text.getBytes())), 16)
+        BigInteger rs = new BigInteger(String.format("%x", new BigInteger(1, text.getBytes("UTF-8"))), 16)
                 .modPow(new BigInteger(pubKey, 16), new BigInteger(modulus, 16));
         String r = rs.toString(16);
         if (r.length() >= 256) {
