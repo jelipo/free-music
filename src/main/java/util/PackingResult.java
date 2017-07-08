@@ -29,11 +29,13 @@ public class PackingResult {
         result.put("data", json);
         return result;
     }
+
     public static Map toSuccessMap() {
         Map result = new HashMap();
         result.put("resultCode", 200);
         return result;
     }
+
     public static Map toSuccessMap(JSONArray jsonArray) {
         Map result = new HashMap();
         result.put("resultCode", 200);
@@ -47,7 +49,6 @@ public class PackingResult {
         result.put("wrong", detailed);
         return result;
     }
-
 
 
 }

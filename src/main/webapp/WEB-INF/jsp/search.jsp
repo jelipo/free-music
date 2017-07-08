@@ -238,6 +238,65 @@
     </div>
 </footer>
 <script>
+
+    var typeMap = {};
+    typeMap['128'] = "s128";
+    typeMap['OGG'] = "sogg";
+    typeMap['320'] = "s320";
+    typeMap['SQ'] = "SQ";
+    function showInput() {
+        $("#inputKeyword").focus();
+    }
+    function dialogsearch() {
+        var keyword = $("#dialoginput").val();
+        if (keyword == null || keyword == undefined || keyword == "") {
+            mdui.snackbar({message: '未输入关键词！'});
+        } else {
+            location.href = "search.do?keyword=" + keyword + "&page=1&type=" + $("#type").val();
+        }
+    }
+
+    function showNoPage() {
+        mdui.snackbar({message: '没有上一页了！'});
+    }
+    function getJson(page, type, keyword) {
+
+        $.when(getAjaxData("/searchjson.do?keyword=" + keyword + "&page=" + page + "&type=" + type)).done(function (data) {
+            var list = data;
+            $("#tab" + type + "-panel").empty();
+            for (var i = 0; i < list.length; i++) {
+                var singleJson = list[i];
+                var copyHtml = $('#singleItem').clone();
+                copyHtml.attr("id", "item" + (i + 1));
+                copyHtml.find(".Stitle").html(singleJson.name);
+                copyHtml.find('.Ssinger').html(singleJson.singer);
+                copyHtml.find('.Salbum').html(singleJson.album);
+                copyHtml.find('.Stime').html(singleJson.time);
+                for (var single in typeMap) {
+                    if (!(singleJson[typeMap[single]] == 0 || singleJson[typeMap[single]] == undefined)) {
+                        copyHtml.find(".item_lable_" + single).attr("href", "downloadurl.do?quality=" + typeMap[single] + "&id=" + singleJson[typeMap[single]] + "&type=" + type);
+                        copyHtml.find(".item_lable_" + single).css("display", "block");
+                    }
+                }
+                if (!(singleJson.mv == 0 || singleJson.mv == undefined)) {
+                    copyHtml.find(".item_lable_MV").attr("href", "getmvurl.do?quality=0&id=" + singleJson.mv + "&type=" + type);
+                    copyHtml.find(".item_lable_MV").css("display", "block");
+                }
+                $("#tab" + type + "-panel").append(copyHtml);
+            }
+            var turnpage = $('#turnpage').clone();
+            if ((Number(page) - 1) > 0) {
+                turnpage.find(".turnpage_up").attr("onclick", "getJson('" + ( Number(page) - 1) + "','" + type + "','" + keyword + "')");
+            } else {
+                turnpage.find(".turnpage_up").attr("onclick", "showNoPage()");
+            }
+
+            turnpage.find(".turnpage_down").attr("onclick", "getJson('" + ( Number(page) + 1) + "','" + type + "','" + keyword + "')");
+            $("#tab" + type + "-panel").append(turnpage);
+            var height = document.body.scrollWidth;
+            $('body,html').animate({'scrollTop': 0}, 200);
+        });
+    }
     $(function () {
         var tab = new mdui.Tab('#tab');
         var drawer = new mdui.Drawer('#drawer');
@@ -255,11 +314,7 @@
         } else if (type == 3) {
             isGotType3 = true;
         }
-        var typeMap = {};
-        typeMap['128'] = "s128";
-        typeMap['OGG'] = "sogg";
-        typeMap['320'] = "s320";
-        typeMap['SQ'] = "SQ";
+
         var tip = new mdui.Tooltip('#search', {
             content: '搜索按钮在这'
         });
@@ -269,44 +324,7 @@
                 tip.open();
             }
         }
-        function getJson(page, type, keyword) {
 
-            $.when(getAjaxData("/searchjson.do?keyword=" + keyword + "&page=" + page + "&type=" + type)).done(function (data) {
-                var list = data;
-                $("#tab" + type + "-panel").empty();
-                for (var i = 0; i < list.length; i++) {
-                    var singleJson = list[i];
-                    var copyHtml = $('#singleItem').clone();
-                    copyHtml.attr("id", "item" + (i + 1));
-                    copyHtml.find(".Stitle").html(singleJson.name);
-                    copyHtml.find('.Ssinger').html(singleJson.singer);
-                    copyHtml.find('.Salbum').html(singleJson.album);
-                    copyHtml.find('.Stime').html(singleJson.time);
-                    for (var single in typeMap) {
-                        if (!(singleJson[typeMap[single]] == 0 || singleJson[typeMap[single]] == undefined)) {
-                            copyHtml.find(".item_lable_" + single).attr("href", "downloadurl.do?quality=" + typeMap[single] + "&id=" + singleJson[typeMap[single]] + "&type=" + type);
-                            copyHtml.find(".item_lable_" + single).css("display", "block");
-                        }
-                    }
-                    if (!(singleJson.mv == 0 || singleJson.mv == undefined)) {
-                        copyHtml.find(".item_lable_MV").attr("href", "getmvurl.do?quality=0&id=" + singleJson.mv + "&type=" + type);
-                        copyHtml.find(".item_lable_MV").css("display", "block");
-                    }
-                    $("#tab" + type + "-panel").append(copyHtml);
-                }
-                var turnpage = $('#turnpage').clone();
-                if ((Number(page) - 1) > 0) {
-                    turnpage.find(".turnpage_up").attr("onclick", "getJson('" + ( Number(page) - 1) + "','" + type + "','" + keyword + "')");
-                } else {
-                    turnpage.find(".turnpage_up").attr("onclick", "showNoPage()");
-                }
-
-                turnpage.find(".turnpage_down").attr("onclick", "getJson('" + ( Number(page) + 1) + "','" + type + "','" + keyword + "')");
-                $("#tab" + type + "-panel").append(turnpage);
-                var height = document.body.scrollWidth;
-                $('body,html').animate({'scrollTop': 0}, 200);
-            });
-        }
 
         document.getElementById('tab1').addEventListener('show.mdui.tab', function () {
             if (!isGotType1) {
@@ -329,7 +347,6 @@
             }
         });
 
-
         $('#inputKeyword').bind('keyup', function (event) {
             if (event.keyCode == "13") {
                 //回车执行查询
@@ -343,21 +360,16 @@
             }
         });
     });
-    function showInput() {
-        $("#inputKeyword").focus();
-    }
-    function dialogsearch() {
-        var keyword = $("#dialoginput").val();
-        if (keyword == null || keyword == undefined || keyword == "") {
-            mdui.snackbar({message: '未输入关键词！'});
-        } else {
-            location.href = "search.do?keyword=" + keyword + "&page=1&type=" + $("#type").val();
-        }
-    }
+</script>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-    function showNoPage() {
-        mdui.snackbar({message: '没有上一页了！'});
-    }
+    ga('create', 'UA-92012528-3', 'auto');
+    ga('send', 'pageview');
+
 </script>
 </body>
 </html>
