@@ -1,16 +1,16 @@
 package music.service.real;
 
 
-import music.pojo.MainFormPojo;
-import music.pojo.qq.QQPojo;
-import music.pojo.qq.Singer;
-import tool.HttpTool;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import music.pojo.MainFormPojo;
+import music.pojo.qq.QQPojo;
+import music.pojo.qq.Singer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import tool.HttpTool;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -45,7 +45,10 @@ public class QQService implements MusicServices {
             json.put("s320", single.getSize320() == 0 ? 0 : single.getSongmid());
             json.put("sogg", single.getSizeogg() == 0 ? 0 : single.getSongmid());
             json.put("SQ", 0);
-            json.put("time", single.getInterval() / 60 + ":" + single.getInterval() % 60);
+            //把小于10的秒数前面加个“0”
+            int seconds = single.getInterval() % 60;
+            String secStr = seconds < 10 ? "0" + String.valueOf(seconds) : String.valueOf(seconds);
+            json.put("time", single.getInterval() / 60 + ":" + secStr);
             json.put("mv", single.getVid().equals("") ? 0 : single.getVid());
             array.add(json);
         }

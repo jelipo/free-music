@@ -1,17 +1,17 @@
 package music.service.real;
 
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import music.pojo.MainFormPojo;
 import music.pojo.wy.Ar;
 import music.pojo.wy.wy;
-import tool.HttpTool;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import okhttp3.Headers;
 import okhttp3.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import tool.HttpTool;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -57,7 +57,10 @@ public class WyService implements MusicServices {
             json.put("sogg", 0);
             json.put("s320", single.getId());
             json.put("SQ", 0);
-            json.put("time", (single.getDt() / 1000) / 60 + ":" + (single.getDt() / 1000) % 60);
+            //???10????????0?
+            int seconds = (single.getDt() / 1000) % 60;
+            String secStr = seconds < 10 ? "0" + String.valueOf(seconds) : String.valueOf(seconds);
+            json.put("time", (single.getDt() / 1000) / 60 + ":" + secStr);
             json.put("mv", single.getMv() == 0 ? 0 : single.getMv());
             array.add(json);
         }

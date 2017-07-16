@@ -14,9 +14,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="format-detection" content="telephone=no"/>
     <link rel="shortcut icon" type="image/x-icon" href="res/ico/ico.png" media="screen" />
-    <link href="res/css/mdui.min.css" rel="stylesheet">
+    <link href="https://res.springmarker.com/music/mdui.min.css" rel="stylesheet">
     <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://res.springmarker.com/other/js/mdui.min.js"></script>
+    <script type="text/javascript" src="https://res.springmarker.com/music/mdui.min.js"></script>
     <script type="text/javascript" src="res/js/main.js"></script>
 
     <style>
