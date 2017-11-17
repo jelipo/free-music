@@ -24,6 +24,7 @@ public class KgDownload implements MusicDownload {
         return json.getString("url");
     }
 
+
     @Override
     public String getMvUrl(String id, String quality) {
 
