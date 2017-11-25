@@ -25,11 +25,9 @@ import java.util.List;
 @Service
 public class WyService implements MusicServices {
 
-    @Value("#{config['search.pagesize']}")
+    @Value("${search.pagesize}")
     private int pagesize;
 
-    @Autowired
-    private HttpTool httpTool;
 
 
     @Override

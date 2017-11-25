@@ -1,7 +1,7 @@
 package freemusic.music.service.download;
 
 /**
- * Created by cao on 2017/2/17.
+ * Created by Springmarker on 2017/2/17.
  */
 public interface MusicDownload {
 

@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 public class QQService implements MusicServices {
 
-    @Value("#{config['search.pagesize']}")
+    @Value("${search.pagesize}")
     private String pagesize;
 
     @Autowired
@@ -30,13 +30,12 @@ public class QQService implements MusicServices {
         JSONArray jsonList = JSON.parseObject(pristineJson).getJSONObject("data").getJSONObject("song").getJSONArray("list");
         List<QQPojo> list = jsonList.toJavaList(QQPojo.class);
         JSONArray array = new JSONArray();
-        for (int i = 0; i < list.size(); i++) {
+        for (QQPojo single : list) {
             JSONObject json = new JSONObject();
-            QQPojo single = list.get(i);
             List<Singer> singerList = single.getSinger();
             StringBuilder singer = new StringBuilder();
-            for (int a = 0; a < singerList.size(); a++) {
-                singer.append(singerList.get(a).getName()).append(" ");
+            for (Singer aSingerList : singerList) {
+                singer.append(aSingerList.getName()).append(" ");
             }
             json.put("singer", singer);
             json.put("name", single.getSongname());

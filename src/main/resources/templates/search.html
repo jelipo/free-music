@@ -1,27 +1,21 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8" %>
-<%
-    String path = request.getContextPath();
-    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-            + path + "/";
-%>
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>搜索结果</title>
     <meta name="viewport" content="width=device-width,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="format-detection" content="telephone=no"/>
-    <link rel="shortcut icon" type="image/x-icon" href="res/ico/ico.png" media="screen" />
-    <link href="https://res.springmarker.com/music/mdui.min.css" rel="stylesheet">
-    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://res.springmarker.com/music/mdui.min.js"></script>
-    <script type="text/javascript" src="res/js/main.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="../static/favicon.ico" th:href="@{/favicon.ico}"
+          media="screen"/>
+    <link href="../static/css/mdui.css" th:href="@{/css/mdui.min.css}" rel="stylesheet">
+    <script type="text/javascript" src="../static/js/jquery-3.2.1.js" th:src="@{/js/jquery-3.2.1.js}"></script>
+    <script type="text/javascript" src="../static/js/mdui.min.js" th:src="@{/js/mdui.min.js}"></script>
+    <script type="text/javascript" src="../static/js/main.js" th:src="@{/js/main.js}"></script>
 
     <style>
         body {
-            font-family: Microsoft Yahei;
+            font-family: Microsoft Yahei, serif;
         }
 
         .searchButton {
@@ -133,14 +127,14 @@
     </style>
 </head>
 <body class="mdui-drawer-body-left">
-<input id="keyword" type="hidden" value="${keyword}">
-<input id="type" type="hidden" value="${type}">
-<input id="page" type="hidden" value="${page}">
+<input id="keyword" type="hidden" th:value="*{keyword}" value="${keyword}">
+<input id="type" type="hidden" th:value="*{type}" value="${type}">
+<input id="page" type="hidden" th:value="*{page}" value="${page}">
 <button mdui-dialog="{target: '#dialog'}"
         class="fixButton mdui-fab mdui-fab-fixed mdui-ripple mdui-color-pink"><i
         class="mdui-icon material-icons">search</i></button>
 <div class="mdui-toolbar mdui-color-indigo">
-    <span class="mdui-typo-title"> ${keyword} - 搜索结果</span>
+    <span class="mdui-typo-title"> <span th:text="*{keyword}"></span> - 搜索结果</span>
     <div class="mdui-toolbar-spacer"></div>
     <div class="mdui-textfield" style="padding-top:5px">
         <input id="inputKeyword" class="input-keyword mdui-textfield-input" type="text" placeholder="输入关键词"/>
@@ -151,7 +145,8 @@
 </div>
 <div id="drawer" style="background-color: #e9e9e9; " class=" mdui-drawer">
     <div style="width: 100%;height: 100%;overflow: hidden;background-color: #424343">
-        <img src="res/pic/music-background.png" width="100%" style="margin-top: 100px ">
+        <img src="../static/pic/music-background.png" th:src="@{/pic/music-background.png}" width="100%"
+             style="margin-top: 100px ">
     </div>
 </div>
 <div class="mdui-container" style="min-height: 800px">
@@ -237,19 +232,21 @@
 
     </div>
 </footer>
-<script>
+<script th:inline="javascript">
 
     var typeMap = {};
     typeMap['128'] = "s128";
     typeMap['OGG'] = "sogg";
     typeMap['320'] = "s320";
     typeMap['SQ'] = "SQ";
+
     function showInput() {
         $("#inputKeyword").focus();
     }
+
     function dialogsearch() {
         var keyword = $("#dialoginput").val();
-        if (keyword == null || keyword == undefined || keyword == "") {
+        if (keyword === null || keyword === undefined || keyword === "") {
             mdui.snackbar({message: '未输入关键词！'});
         } else {
             location.href = "search.do?keyword=" + keyword + "&page=1&type=" + $("#type").val();
@@ -259,6 +256,7 @@
     function showNoPage() {
         mdui.snackbar({message: '没有上一页了！'});
     }
+
     function getJson(page, type, keyword) {
 
         $.when(getAjaxData("/searchjson.do?keyword=" + keyword + "&page=" + page + "&type=" + type)).done(function (data) {
@@ -297,6 +295,7 @@
             $('body,html').animate({'scrollTop': 0}, 200);
         });
     }
+
     $(function () {
         var tab = new mdui.Tab('#tab');
         var drawer = new mdui.Drawer('#drawer');
@@ -319,8 +318,9 @@
             content: '搜索按钮在这'
         });
         showTip();
+
         function showTip() {
-            if (window.innerWidth>800){
+            if (window.innerWidth > 800) {
                 tip.open();
             }
         }
@@ -362,10 +362,17 @@
     });
 </script>
 <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
     ga('create', 'UA-92012528-3', 'auto');
     ga('send', 'pageview');

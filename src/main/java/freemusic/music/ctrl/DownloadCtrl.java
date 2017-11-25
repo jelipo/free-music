@@ -16,7 +16,7 @@ public class DownloadCtrl {
     public String downloadurl(@RequestParam String type, @RequestParam String id, @RequestParam String quality) {
         String url = downloadService.getDownloadUrl(type, quality, id);
         if (url.equals("")) {
-            return "Sorry";
+            return "sorry";
         }
         return "redirect:" + url;
     }
@@ -25,7 +25,7 @@ public class DownloadCtrl {
     public String getMv(@RequestParam String type, @RequestParam String id, @RequestParam String quality) {
         String url = downloadService.getMvUrl(type, quality, id);
         if (url.equals("")) {
-            return "Sorry";
+            return "sorry";
         }
         return "redirect:" + url;
     }

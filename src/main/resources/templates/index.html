@@ -1,23 +1,15 @@
-<%@ page language="java" pageEncoding="utf-8" %>
-<%
-    String path = request.getContextPath();
-    String basePath = request.getScheme() + "://"
-            + request.getServerName() + ":" + request.getServerPort()
-            + path + "/";
-%>
-
 <!DOCTYPE html>
-<html lang="cn">
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>自由的音乐</title>
     <meta name="viewport" content="width=device-width,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="format-detection" content="telephone=no"/>
-    <link rel="shortcut icon" type="image/x-icon" href="res/ico/ico.png" media="screen"/>
+    <link rel="shortcut icon" type="image/x-icon" href="../static/ico/ico.png" media="screen"/>
     <link href="https://res.springmarker.com/music/mdui.min.css" rel="stylesheet">
-    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://res.springmarker.com/music/mdui.min.js"></script>
+    <script type="text/javascript" src="../static/js/jquery-3.2.1.js" th:src="@{/js/jquery-3.2.1.js}"></script>
+    <script type="text/javascript" src="../static/js/mdui.min.js" th:src="@{/js/mdui.min.js}"></script>
     <style>
         body {
             font-family: Microsoft Yahei;

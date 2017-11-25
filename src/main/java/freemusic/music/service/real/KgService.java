@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class KgService implements MusicServices {
 
-    @Value("#{config['search.pagesize']}")
+    @Value("${search.pagesize}")
     private String pagesize;
 
     @Autowired
@@ -61,7 +61,6 @@ public class KgService implements MusicServices {
         String url = "http://songsearch.kugou.com/song_search_v2?"
                 + "keyword=" + keyword + "&page=" + form.getPage() + "&pagesize=" + pagesize + "&filter=0&bitrate=0&isfuzzy=0&"
                 + "tag=em&inputtype=2&platform=PcFilter&userid=&clientver=8060&iscorrection=3";
-        String result = httpClient.getJsonResultWithGet(url);
-        return result;
+        return httpClient.getJsonResultWithGet(url);
     }
 }

@@ -13,7 +13,7 @@ import freemusic.util.PackingResult;
 import java.util.Map;
 
 /**
- * Created by cao on 2017/2/17.
+ * Created by Springmarker on 2017/2/17.
  */
 @Service
 public class GetJsonService {
@@ -21,7 +21,7 @@ public class GetJsonService {
     public Map getFormatJson(MainFormPojo mainFormPojo) {
         MusicServices musicService = getService(mainFormPojo.getType());
         JSONArray array = musicService.getFormatJson(mainFormPojo);
-        return PackingResult.toSuccessMap(array);
+        return PackingResult.INSTANCE.toSuccessMap(array);
     }
 
     public String getPristineJson(MainFormPojo mainFormPojo) {

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
+import org.springframework.web.servlet.ModelAndView
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
 
 @Controller
@@ -19,10 +20,15 @@ class WebCtrl {
     }
 
     @GetMapping("/search.do")
-    fun searear(@ModelAttribute("MainFormPojo") form: MainFormPojo, model: Model): String {
-        model.addAttribute("type", form.type)
-        model.addAttribute("keyword", form.keyword)
-        model.addAttribute("page", form.page)
-        return "search"
+    fun search(@ModelAttribute("MainFormPojo") form: MainFormPojo, model: Model): ModelAndView {
+        val modelAndView = ModelAndView()
+        modelAndView.viewName = "search"
+        modelAndView.addObject("type", form.type)
+        modelAndView.addObject("keyword", form.keyword)
+        modelAndView.addObject("page", form.page)
+        return modelAndView
     }
+
+    @GetMapping("/", "/index")
+    fun index(): String = "index"
 }

@@ -21,6 +21,9 @@ public class QQDownload implements MusicDownload {
     @Autowired
     private HttpTool httpTool;
 
+    @Autowired
+    private OkHttpClient httpClient;
+
     @Override
     public String getDownloadUrl(String id, String quality) {
         long nowTime = System.currentTimeMillis();
@@ -40,14 +43,13 @@ public class QQDownload implements MusicDownload {
     @Override
     public String getMvUrl(String id, String quality) {
         String sendUrl = "http://vv.video.qq.com/getinfo?vid=" + id + "&platform=11&charge=1&otype=json";
-        OkHttpClient httpClient = httpTool.getHttpClient();
         Request request = new Request.Builder().url(sendUrl)
                 .addHeader("Cookie", "__remember_me=true; MUSIC_U=5f9d910d66cb2440037d1c68e6972ebb9f15308b56bfeaa4545d34fbabf71e0f36b9357ab7f474595690d369e01fbb9741049cea1c6bb9b6; __csrf=8ea789fbbf78b50e6b64b5ebbb786176; os=uwp; osver=10.0.10586.318; appver=1.2.1; deviceId=0e4f13d2d2ccbbf31806327bd4724043")
                 .build();
         try {
             Response response = httpClient.newCall(request).execute();
-            String html=response.body().string();
-            return  mv(id,html);
+            String html = response.body().string();
+            return mv(id, html);
         } catch (IOException e) {
             return "";
         }
@@ -66,9 +68,9 @@ public class QQDownload implements MusicDownload {
             dic.put(fiBean.getName(), fiBean.getId());
         }
         int mvID;
-        JSONObject json=JSONObject.parseObject(html);
-        JSONArray array=json.getJSONObject("fl").getJSONArray("fi");
-         switch (count) {
+        JSONObject json = JSONObject.parseObject(html);
+        JSONArray array = json.getJSONObject("fl").getJSONArray("fi");
+        switch (count) {
             case 4:
                 mvID = dic.get("fhd");
                 break;
@@ -87,7 +89,7 @@ public class QQDownload implements MusicDownload {
         String fn = id + ".p" + (mvID - 10000) + ".1.mp4";
         return tencentMvData.getVl().getVi().get(0).getUl().getUi().get(0).getUrl() + fn + "?vkey=" + vkey;
 
-}
+    }
 
     @Override
     public String getImgUrl(String id, String quality) {
