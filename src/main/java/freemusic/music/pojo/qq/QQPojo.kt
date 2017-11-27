@@ -13,5 +13,6 @@ data class QQPojo(
         var songname_hilight: String = "",
         var vid: String = "",
         var strMediaMid: String = "",
-        var albumname: String? = ""
+        var albumname: String? = "",
+        var interval: Int
 )

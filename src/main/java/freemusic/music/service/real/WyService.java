@@ -5,11 +5,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import freemusic.music.pojo.MainFormPojo;
 import freemusic.music.pojo.wy.Ar;
-import freemusic.music.pojo.wy.wy;
-import freemusic.tool.HttpTool;
+import freemusic.music.pojo.wy.Wy;
 import okhttp3.Headers;
 import okhttp3.MediaType;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +17,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -29,19 +28,18 @@ public class WyService implements MusicServices {
     private int pagesize;
 
 
-
     @Override
-    public JSONArray getFormatJson(MainFormPojo form) {
+    public ArrayList getFormatJson(MainFormPojo form) {
         String searchResult = getSearchResult(form);
         JSONObject jsonResult = JSONObject.parseObject(searchResult).getJSONObject("result");
         if (jsonResult.getInteger("songCount") == 0) {
-            return new JSONArray();
+            return new ArrayList(0);
         }
         JSONArray jsonList = jsonResult.getJSONArray("songs");
-        List<wy> list = jsonList.toJavaList(wy.class);
-        JSONArray array = new JSONArray();
+        List<Wy> list = jsonList.toJavaList(Wy.class);
+        ArrayList array = new ArrayList(list.size());
         for (int i = 0; i < list.size(); i++) {
-            wy single = list.get(i);
+            Wy single = list.get(i);
             JSONObject json = new JSONObject();
             json.put("name", single.getName());
             List<Ar> singerList = single.getAr();
@@ -59,7 +57,7 @@ public class WyService implements MusicServices {
             int seconds = (single.getDt() / 1000) % 60;
             String secStr = seconds < 10 ? "0" + String.valueOf(seconds) : String.valueOf(seconds);
             json.put("time", (single.getDt() / 1000) / 60 + ":" + secStr);
-            json.put("mv", single.getMv() == 0 ? 0 : single.getMv());
+            json.put("mv", single.getMv());
             array.add(json);
         }
         return array;
@@ -73,22 +71,6 @@ public class WyService implements MusicServices {
         String s = null;
         s = NetUtil.GetEncHtml("http://music.163.com/weapi/cloudsearch/get/web?csrf_token=", text, true);
         return s;
-//        String keyword = null;
-//        try {
-//            keyword= URLEncoder.encode(form.getKeyword(), "utf-8");
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
-//        SendPost post=new SendPost("http://music.163.com/api/search/pc","utf-8");
-//        post.addHttpHeader("Cookie", "appver=2.0.2");
-//        post.addHttpHeader("Referer", "http://music.163.com");
-//        post.addPostText("s", keyword);
-//
-//        post.addPostText("sub", "false");
-//        post.addPostText("limit", "20");
-//        post.addPostText("type", "1");
-//        post.addPostText("offset", form.getPage());
-//        return post.send();
     }
 
 

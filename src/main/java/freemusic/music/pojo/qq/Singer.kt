@@ -1,3 +1,3 @@
 package freemusic.music.pojo.qq
 
-data class Singer(val singer: String = "")
+data class Singer(val name: String = "")

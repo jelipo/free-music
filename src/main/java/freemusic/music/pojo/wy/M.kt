@@ -1,6 +1,6 @@
 package freemusic.music.pojo.wy
 
-data class H(
+data class M(
         var br: Int = 0,
         var fid: Int = 0,
         var size: Int = 0,

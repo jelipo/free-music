@@ -8,8 +8,9 @@ import org.springframework.context.annotation.Bean
 
 @SpringBootApplication
 class FreemusicApplication {
+
     @Bean
-    fun okHttpClient(): OkHttpClient = OkHttpClient();
+    fun okHttpClient(): OkHttpClient = OkHttpClient()
 }
 
 fun main(args: Array<String>) {

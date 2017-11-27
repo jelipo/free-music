@@ -14,6 +14,7 @@ import freemusic.tool.HttpTool;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,11 +26,11 @@ public class QQService implements MusicServices {
     @Autowired
     private HttpTool httpTool;
 
-    public JSONArray getFormatJson(MainFormPojo form) {
+    public ArrayList getFormatJson(MainFormPojo form) {
         String pristineJson = getSearchResult(form);
         JSONArray jsonList = JSON.parseObject(pristineJson).getJSONObject("data").getJSONObject("song").getJSONArray("list");
         List<QQPojo> list = jsonList.toJavaList(QQPojo.class);
-        JSONArray array = new JSONArray();
+        ArrayList array = new ArrayList(list.size());
         for (QQPojo single : list) {
             JSONObject json = new JSONObject();
             List<Singer> singerList = single.getSinger();

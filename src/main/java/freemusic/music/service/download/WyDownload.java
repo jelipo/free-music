@@ -24,44 +24,47 @@ public class WyDownload implements MusicDownload {
     @Autowired
     private HttpTool httpTool;
 
+    @Autowired
+    private OkHttpClient httpClient;
+
     @Override
     public String getDownloadUrl(String id, String quality) {
-        String realQuality="320000";
+        String realQuality = "320000";
         String text = "{\"ids\":[\"" + id + "\"],\"br\":" + realQuality + ",\"csrf_token\":\"\"}";
         String html;
         html = NetUtil.GetEncHtml("http://music.163.com/weapi/song/enhance/player/url?csrf_token=", text, true);
         JSONObject json = JSON.parseObject(html);
-        if (json.getJSONArray("data").getJSONObject(0).getInteger("code")==200){
+        if (json.getJSONArray("data").getJSONObject(0).getInteger("code") == 200) {
             return json.getJSONArray("data").getJSONObject(0).getString("url");
-        }else {
-            return  GetLostPlayUrl(id, realQuality);
+        } else {
+            return GetLostPlayUrl(id, realQuality);
         }
     }
 
     @Override
     public String getMvUrl(String id, String quality) {
-        String sendUrl = "http://music.163.com/api/song/mv?id=" + id+ "&type=mp4";
-        OkHttpClient httpClient = httpTool.getHttpClient();
+        String sendUrl = "http://music.163.com/api/song/mv?id=" + id + "&type=mp4";
         Request request = new Request.Builder().url(sendUrl)
                 .addHeader("Cookie", "__remember_me=true; MUSIC_U=5f9d910d66cb2440037d1c68e6972ebb9f15308b56bfeaa4545d34fbabf71e0f36b9357ab7f474595690d369e01fbb9741049cea1c6bb9b6; __csrf=8ea789fbbf78b50e6b64b5ebbb786176; os=uwp; osver=10.0.10586.318; appver=1.2.1; deviceId=0e4f13d2d2ccbbf31806327bd4724043")
                 .build();
         Response response = null;
         try {
             response = httpClient.newCall(request).execute();
-            String html=response.body().string();
-            JSONObject json=JSONObject.parseObject(html);
-            JSONArray array=json.getJSONArray("mvs");
-            Map<Integer ,JSONObject> map=new HashMap();
-            int arraySize=array.size();
-            int arr[]=new int[arraySize];
-            for (int i=0;i<arraySize;i++){
-                JSONObject single=array.getJSONObject(i);
-                arr[i]=single.getInteger("br");
-                map.put(arr[i],single);
+            String html = response.body().string();
+            JSONObject json = JSONObject.parseObject(html);
+            JSONArray array = json.getJSONArray("mvs");
+            Map<Integer, JSONObject> map = new HashMap();
+            int arraySize = array.size();
+            int arr[] = new int[arraySize];
+            for (int i = 0; i < arraySize; i++) {
+                JSONObject single = array.getJSONObject(i);
+                arr[i] = single.getInteger("br");
+                map.put(arr[i], single);
             }
             Arrays.sort(arr);
-            map.get(arr[arraySize-1]);
-            JSONObject bigJson=map.get(arr[arraySize-1]);;
+            map.get(arr[arraySize - 1]);
+            JSONObject bigJson = map.get(arr[arraySize - 1]);
+            ;
             return bigJson.getString("mvurl");
         } catch (IOException e) {
             e.printStackTrace();
@@ -125,6 +128,7 @@ public class WyDownload implements MusicDownload {
             return null;
         }
     }
+
     private static String GetUrlBySid(String dfsId) {
         String encryptPath = EncryptId(dfsId);
         return "http://m2.music.126.net/" + encryptPath + "/" + dfsId + ".mp3";

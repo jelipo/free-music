@@ -4,17 +4,15 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import freemusic.music.pojo.MainFormPojo;
 import freemusic.music.pojo.kg.Kg;
+import freemusic.tool.HttpTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import freemusic.tool.HttpTool;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.List;
+import java.util.ArrayList;
 
-@Service
-public class KgService implements MusicServices {
+public class KgServiceJava implements MusicServices {
 
     @Value("${search.pagesize}")
     private String pagesize;
@@ -24,25 +22,24 @@ public class KgService implements MusicServices {
 
 
     @Override
-    public JSONArray getFormatJson(MainFormPojo form) {
+    public ArrayList getFormatJson(MainFormPojo form) {
         String pristineJson = getSearchResult(form);
         JSONArray list = JSONObject.parseObject(pristineJson).getJSONObject("data").getJSONArray("lists");
-        List<Kg> kg = list.toJavaList(Kg.class);
-        JSONArray array = new JSONArray();
-        for (int i = 0; i < kg.size(); i++) {
+        ArrayList array = new ArrayList(list.size());
+        for (int i = 0; i < list.size(); i++) {
             JSONObject json = new JSONObject();
-            Kg single = kg.get(i);
+            Kg single = list.getJSONObject(i).toJavaObject(Kg.class);
             json.put("name", single.getSongName().replace("<em>", "").replace("</em>", ""));
             json.put("singer", single.getSingerName().replace("<em>", "").replace("</em>", ""));
             json.put("album", single.getAlbumName().replace("<em>", "").replace("</em>", ""));
             json.put("s128", single.getFileHash().replace("0", "").equals("") ? 0 : single.getFileHash());
-            json.put("s320", single.getHQFileHash().replace("0", "").equals("") ? 0 : single.getFileHash());
+            json.put("s320", single.getHqFileHash().replace("0", "").equals("") ? 0 : single.getFileHash());
             json.put("sogg", 0);
-            json.put("SQ", single.getSQFileHash());
+            json.put("SQ", single.getSqFileHash());
             //把小于10的秒数前面加个“0”
-            int seconds = single.getHQDuration() % 60;
+            int seconds = single.getHqDuration() % 60;
             String secStr = seconds < 10 ? "0" + String.valueOf(seconds) : String.valueOf(seconds);
-            json.put("time", Integer.toString(single.getHQDuration() / 60) + ":" + secStr);
+            json.put("time", Integer.toString(single.getHqDuration() / 60) + ":" + secStr);
             json.put("mv", single.getMvHash());
             array.add(json);
         }

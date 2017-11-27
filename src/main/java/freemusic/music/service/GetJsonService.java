@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import freemusic.util.PackingResult;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -20,7 +21,7 @@ public class GetJsonService {
 
     public Map getFormatJson(MainFormPojo mainFormPojo) {
         MusicServices musicService = getService(mainFormPojo.getType());
-        JSONArray array = musicService.getFormatJson(mainFormPojo);
+        ArrayList array = musicService.getFormatJson(mainFormPojo);
         return PackingResult.INSTANCE.toSuccessMap(array);
     }
 
