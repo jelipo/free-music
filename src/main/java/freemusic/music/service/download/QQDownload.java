@@ -30,12 +30,16 @@ public class QQDownload implements MusicDownload {
         long guid = new Random(nowTime).nextLong();
         String key = getKey(nowTime, guid);
         String url = null;
-        if (quality.equals("s128")) {
-            url = "http://ws.stream.qqmusic.qq.com/M500" + id + ".mp3?vkey=" + key + "&guid=" + guid + "&fromtag=0";
-        } else if (quality.equals("sogg")) {
-            url = "http://ws.stream.qqmusic.qq.com/O600" + id + ".ogg?vkey=" + key + "&guid=" + guid + "&fromtag=50";
-        } else if (quality.equals("s320")) {
-            url = "http://ws.stream.qqmusic.qq.com/M800" + id + ".mp3?vkey=" + key + "&guid=" + guid + "&fromtag=50";
+        switch (quality) {
+            case "s128":
+                url = "http://ws.stream.qqmusic.qq.com/M500" + id + ".mp3?vkey=" + key + "&guid=" + guid + "&fromtag=0";
+                break;
+            case "sogg":
+                url = "http://ws.stream.qqmusic.qq.com/O600" + id + ".ogg?vkey=" + key + "&guid=" + guid + "&fromtag=50";
+                break;
+            case "s320":
+                url = "http://ws.stream.qqmusic.qq.com/M800" + id + ".mp3?vkey=" + key + "&guid=" + guid + "&fromtag=50";
+                break;
         }
         return url;
     }

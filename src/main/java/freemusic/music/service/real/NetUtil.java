@@ -114,7 +114,7 @@ public class NetUtil {
             if (execute.isSuccessful()) {
                 return execute.body().string();
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
         return "";
@@ -170,20 +170,20 @@ public class NetUtil {
 
     //based on [darknessomi/musicbox](https://github.com/darknessomi/musicbox)
     private static String createSecretKey(int i) {
-        return getRandomString(16);
+        return getRandomString(i);
     }
 
     private static int getRandom(int count) {
         return (int) Math.round(Math.random() * (count));
     }
 
-    private static String string = "0123456789abcde";
+    private static String str = "0123456789abcde";
 
     private static String getRandomString(int length) {
         StringBuffer sb = new StringBuffer();
-        int len = string.length();
+        int len = str.length();
         for (int i = 0; i < length; i++) {
-            sb.append(string.charAt(getRandom(len - 1)));
+            sb.append(str.charAt(getRandom(len - 1)));
         }
         return sb.toString();
     }
