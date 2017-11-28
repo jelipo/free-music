@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 import freemusic.music.pojo.MainFormPojo;
 import freemusic.music.pojo.qq.QQPojo;
 import freemusic.music.pojo.qq.Singer;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ public class QQService implements MusicServices {
     @Autowired
     private HttpTool httpTool;
 
+    @NotNull
     public ArrayList getFormatJson(MainFormPojo form) {
         String pristineJson = getSearchResult(form);
         JSONArray jsonList = JSON.parseObject(pristineJson).getJSONObject("data").getJSONObject("song").getJSONArray("list");
@@ -55,6 +57,7 @@ public class QQService implements MusicServices {
         return array;
     }
 
+    @NotNull
     @Override
     public String getSearchResult(MainFormPojo form) {
 

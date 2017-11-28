@@ -1,9 +1,7 @@
 package freemusic.music.service.real
 
 import com.alibaba.fastjson.JSON
-import com.alibaba.fastjson.JSONArray
 import com.alibaba.fastjson.JSONObject
-import com.fasterxml.jackson.databind.ObjectMapper
 import freemusic.music.pojo.MainFormPojo
 import freemusic.music.pojo.kg.Kg
 import freemusic.tool.HttpTool
@@ -22,8 +20,8 @@ class KgService : MusicServices {
     @Autowired
     private val httpClient: HttpTool? = null
 
-    override fun getFormatJson(form: MainFormPojo): ArrayList<*> {
-        val pristineJson = getSearchResult(form)
+    override fun getFormatJson(mainFormPojo: MainFormPojo): ArrayList<*> {
+        val pristineJson = getSearchResult(mainFormPojo)
         val list = JSONObject.parseObject(pristineJson).getJSONObject("data").getJSONArray("lists")
         val array = ArrayList<HashMap<String,Any>>()
         for (i in list.indices) {
@@ -50,16 +48,16 @@ class KgService : MusicServices {
         return text.replace("<em>", "").replace("</em>", "")
     }
 
-    override fun getSearchResult(form: MainFormPojo): String {
+    override fun getSearchResult(mainFormPojo: MainFormPojo): String {
         var keyword: String? = null
         try {
-            keyword = URLEncoder.encode(form.keyword, "utf-8")
+            keyword = URLEncoder.encode(mainFormPojo.keyword, "utf-8")
         } catch (e: UnsupportedEncodingException) {
             e.printStackTrace()
         }
 
         val url = ("http://songsearch.kugou.com/song_search_v2?"
-                + "keyword=$keyword&page=${form.page}&pagesize=$pagesize&filter=0&bitrate=0&isfuzzy=0&"
+                + "keyword=$keyword&page=${mainFormPojo.page}&pagesize=$pagesize&filter=0&bitrate=0&isfuzzy=0&"
                 + "tag=em&inputtype=2&platform=PcFilter&userid=&clientver=8060&iscorrection=3")
         return httpClient!!.getJsonResultWithGet(url)
     }
