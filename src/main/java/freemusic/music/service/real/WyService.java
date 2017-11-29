@@ -27,7 +27,6 @@ public class WyService implements MusicServices {
     @Value("${search.pagesize}")
     private int pagesize;
 
-
     @Override
     public ArrayList getFormatJson(MainFormPojo form) {
         String searchResult = getSearchResult(form);
@@ -53,7 +52,6 @@ public class WyService implements MusicServices {
             json.put("sogg", 0);
             json.put("s320", single.getId());
             json.put("SQ", 0);
-            //???10????????0?
             int seconds = (single.getDt() / 1000) % 60;
             String secStr = seconds < 10 ? "0" + String.valueOf(seconds) : String.valueOf(seconds);
             json.put("time", (single.getDt() / 1000) / 60 + ":" + secStr);

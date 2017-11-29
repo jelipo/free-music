@@ -21,8 +21,6 @@ import java.util.*;
 @Service
 public class WyDownload implements MusicDownload {
 
-    @Autowired
-    private HttpTool httpTool;
 
     @Autowired
     private OkHttpClient httpClient;
