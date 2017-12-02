@@ -5,17 +5,15 @@ import freemusic.music.service.real.KgService
 import freemusic.music.service.real.MusicServices
 import freemusic.music.service.real.QQService
 import freemusic.music.service.real.WyService
-import freemusic.util.PackingResult
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class GetJsonService{
+class FormatService {
 
-    fun getFormatJson(mainFormPojo: MainFormPojo): Map<*, *> {
+    fun getFormatArray(mainFormPojo: MainFormPojo): ArrayList<*> {
         val musicService = getService(mainFormPojo.type)
-        val array = musicService!!.getFormatJson(mainFormPojo)
-        return PackingResult.toSuccessMap(array)
+        return musicService!!.getFormatJson(mainFormPojo);
     }
 
     fun getPristineJson(mainFormPojo: MainFormPojo): String {
@@ -24,13 +22,12 @@ class GetJsonService{
     }
 
     private fun getService(type: String): MusicServices? {
-        var musicService: MusicServices? = null
         when (type) {
-            "1" -> musicService = this.qqService
-            "2" -> musicService = this.wyService
-            "3" -> musicService = this.kgService
+            "1" -> return this.qqService
+            "2" -> return this.wyService
+            "3" -> return this.kgService
         }
-        return musicService
+        return qqService
     }
 
     @Autowired

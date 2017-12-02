@@ -1,4 +1,6 @@
 /.idea/
-/16_09_30_Music.iml
-/target/
 
+.gradle/
+.settings/
+build/
+out/

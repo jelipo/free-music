@@ -1,18 +1,20 @@
 package freemusic.music.service.real
 
 import com.alibaba.fastjson.JSON
-import com.alibaba.fastjson.JSONObject
+import com.alibaba.fastjson.JSONArray
 import freemusic.music.pojo.MainFormPojo
-import freemusic.music.pojo.kg.Kg
 import freemusic.music.pojo.qq.QQPojo
 import freemusic.music.pojo.qq.Singer
 import freemusic.tool.HttpTool
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Service
 import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
 import java.util.ArrayList
+import kotlin.collections.HashMap
 
+@Service
 class QQService : MusicServices {
 
     @Value("\${search.pagesize}")
@@ -23,17 +25,15 @@ class QQService : MusicServices {
 
     override fun getFormatJson(mainFormPojo: MainFormPojo): ArrayList<*> {
         val pristineJson = getSearchResult(mainFormPojo)
-        val jsonList = JSON.parseObject(pristineJson).getJSONObject("data").getJSONObject("song").getJSONArray("list")
-        val list = jsonList.toJavaList(QQPojo::class.java)
+        val jsonList: JSONArray = JSON.parseObject(pristineJson).getJSONObject("data").getJSONObject("song").getJSONArray("list")
         val array = ArrayList<Any>()
-        for (i in list.indices) {
+        for (i in jsonList.indices) {
             val map = HashMap<String, Any>()
-            val single: QQPojo = JSON.parseObject(list[i].toString(), QQPojo::class.java)
+
+            val single: QQPojo = JSON.parseObject(jsonList[i].toString(), QQPojo::class.java)
             val singerList = single.singer
             val singer = StringBuilder()
-            for (aSingerList: Singer in singerList) {
-                singer.append(aSingerList.name).append(" ")
-            }
+            for (aSingerList: Singer in singerList) singer.append(aSingerList.name).append(" ")
             map.put("singer", singer)
             map.put("name", single.songname)
             map.put("album", single.albumname)
@@ -45,7 +45,7 @@ class QQService : MusicServices {
             val seconds = single.interval % 60
             val secStr = if (seconds < 10) "0" + seconds.toString() else seconds.toString()
             map.put("time", (single.interval / 60).toString() + ":" + secStr)
-            map.put("mv", if (single.vid.equals("")) 0 else single.vid)
+            map.put("mv", if (single.vid == "") 0 else single.vid)
             array.add(map)
         }
         return array

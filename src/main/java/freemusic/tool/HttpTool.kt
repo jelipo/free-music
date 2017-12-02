@@ -20,14 +20,3 @@ class HttpTool {
         return response.body()!!.string()
     }
 }
-
-fun main(args: Array<String>) {
-    val pristineJson = "{\"data\":{\"lists\":[{\"Name\":\"Mark\"}]}}"
-    val list = JSONObject.parseObject(pristineJson).getJSONObject("data").getJSONArray("lists")
-    for (i in list.indices) {
-        var sss = list.getJSONObject(i)
-        val single: Test = sss.toJavaObject(Test::class.java)
-        val i = 0
-
-    }
-}

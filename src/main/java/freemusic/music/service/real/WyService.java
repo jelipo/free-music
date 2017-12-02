@@ -35,7 +35,7 @@ public class WyService implements MusicServices {
             return new ArrayList(0);
         }
         JSONArray jsonList = jsonResult.getJSONArray("songs");
-        List<Wy> list = jsonList.toJavaList(Wy.class);
+        List<Wy> list = JSONArray.parseArray(jsonList.toJSONString(), Wy.class);
         ArrayList array = new ArrayList(list.size());
         for (int i = 0; i < list.size(); i++) {
             Wy single = list.get(i);

@@ -1,17 +1,16 @@
 package freemusic.music.service.download;
 
-import freemusic.music.pojo.wy.NeteaseLostSong;
-import freemusic.music.service.real.NetUtil;
-import freemusic.tool.HttpTool;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import freemusic.music.pojo.wy.NeteaseLostSong;
+import freemusic.music.service.real.NetUtil;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.misc.BASE64Encoder;
 
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -39,6 +38,7 @@ public class WyDownload implements MusicDownload {
         }
     }
 
+    @NotNull
     @Override
     public String getMvUrl(String id, String quality) {
         String sendUrl = "http://music.163.com/api/song/mv?id=" + id + "&type=mp4";
@@ -114,7 +114,7 @@ public class WyDownload implements MusicDownload {
         }
     }
 
-    public static String GetLostAlbumId(String id) {
+    private static String GetLostAlbumId(String id) {
         String text = "[{\"id\":\"" + id + "\"}]";
         HashMap<String, String> map = new HashMap<>();
         map.put("c", text);
@@ -148,7 +148,7 @@ public class WyDownload implements MusicDownload {
             return "";
         }
         byte[] md5Bytes = md5.digest(byte2);
-        String retval = new BASE64Encoder().encode(md5Bytes);
+        String retval = new String(Base64.getDecoder().decode(md5Bytes));
         retval = retval.replace('/', '_');
         retval = retval.replace('+', '-');
         return retval;
