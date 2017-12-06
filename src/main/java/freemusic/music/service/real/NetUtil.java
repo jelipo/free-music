@@ -57,10 +57,6 @@ public class NetUtil {
         return "";
     }
 
-    public static String GetHtmlContent(String url) {
-        return GetHtmlContent(url, false);
-    }
-
     public static String GetHtmlContent(String url, boolean needCookie) {
         try {
             Request.Builder builder = new Request.Builder().url(url).get().headers(headers);
@@ -78,23 +74,6 @@ public class NetUtil {
         return "";
     }
 
-
-    public static String GetHtmlWithRefer(String url, String refer) {
-        try {
-            Request.Builder builder = new Request.Builder().url(url).get().headers(headers);
-
-            builder.addHeader("Referer", refer);
-
-            Request request = builder.build();
-            Response execute = client.newCall(request).execute();
-            if (execute.isSuccessful()) {
-                return execute.body().string();
-            }
-        } catch (Exception e) {
-
-        }
-        return "";
-    }
 
     public static String PostData(String url, HashMap<String, String> params) {
 
@@ -121,7 +100,7 @@ public class NetUtil {
     }
 
     //based on [darknessomi/musicbox](https://github.com/darknessomi/musicbox)
-    static String encryptedRequest(String text) throws UnsupportedEncodingException {
+    private static String encryptedRequest(String text) throws UnsupportedEncodingException {
         String secKey = createSecretKey(16);
         String encText = aesEncrypt(aesEncrypt(text, nonce), secKey);
         String encSecKey = rsaEncrypt(secKey, pubKey, modulus);

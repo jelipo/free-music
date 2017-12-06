@@ -42,7 +42,7 @@ class KgService : MusicServices {
         hashMap.put("s128", if (single.fileHash.replace("0", "") == "") "" else single.fileHash)
         hashMap.put("s320", if (single.hqFileHash.replace("0", "") == "") "" else single.fileHash)
         hashMap.put("sogg", "")
-        hashMap.put("SQ", single.sqFileHash)
+        hashMap.put("SQ", if (single.sqFileHash.replace("0", "").isEmpty()) "" else single.sqFileHash)
         //把小于10的秒数前面加个“0”
         val duration = if (single.hqDuration == 0) single.duration else single.hqDuration
         val seconds = duration % 60

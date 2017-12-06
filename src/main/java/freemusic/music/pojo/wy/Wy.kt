@@ -1,7 +1,5 @@
 package freemusic.music.pojo.wy
 
-import com.alibaba.fastjson.annotation.JSONField
-
 data class Wy(
         var ar: List<Ar>? = null,
         var al: Al? = null,

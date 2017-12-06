@@ -37,10 +37,10 @@ class QQService : MusicServices {
             map.put("singer", singer)
             map.put("name", single.songname)
             map.put("album", single.albumname)
-            map.put("s128", if (single.size128 == 0) 0 else single.songmid)
-            map.put("s320", if (single.size320 == 0) 0 else single.songmid)
-            map.put("sogg", if (single.sizeogg == 0) 0 else single.songmid)
-            map.put("SQ", 0)
+            map.put("s128", if (single.size128 == 0) "" else single.songmid)
+            map.put("s320", if (single.size320 == 0) "" else single.songmid)
+            map.put("sogg", if (single.sizeogg == 0) "" else single.songmid)
+            map.put("SQ", "")
             //把小于10的秒数前面加个“0”
             val seconds = single.interval % 60
             val secStr = if (seconds < 10) "0" + seconds.toString() else seconds.toString()

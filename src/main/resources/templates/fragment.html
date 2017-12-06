@@ -17,7 +17,6 @@
             <i class="mdui-panel-item-arrow mdui-icon material-icons">&#xe313;</i>
         </div>
         <div class="mdui-panel-item-body">
-            <div th:text="${#strings.length(data.mv)}"></div>
             <a th:href="@{downloadurl.do(quality='s128',id=${data.s128},type=${type})}"
                class="item_lable item_lable_128" th:if="${#strings.length(data.s128)}!=0" target="_blank">128</a>
 
