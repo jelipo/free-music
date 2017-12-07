@@ -10,6 +10,7 @@ import java.math.BigInteger;
 import java.net.URLEncoder;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -29,7 +30,7 @@ public class NetUtil {
     final static private String nonce = "0CoJUm6Qyw8W8jud";
     final static private String pubKey = "010001";
 
-    public static String GetEncHtml(String url, String text, boolean needCookie) {
+    public static String getEncHtml(String url, String text, boolean needCookie) {
 
         String param = null;
         try {
@@ -57,7 +58,7 @@ public class NetUtil {
         return "";
     }
 
-    public static String GetHtmlContent(String url, boolean needCookie) {
+    public static String getHtmlContent(String url, boolean needCookie) {
         try {
             Request.Builder builder = new Request.Builder().url(url).get().headers(headers);
             if (needCookie) {
@@ -75,7 +76,7 @@ public class NetUtil {
     }
 
 
-    public static String PostData(String url, HashMap<String, String> params) {
+    public static String postData(String url, Map<String, String> params) {
 
         try {
             FormBody.Builder build = new FormBody.Builder();

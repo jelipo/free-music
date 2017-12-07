@@ -28,7 +28,7 @@ class WyService : MusicServices {
             val single = JSON.parseObject(jsonList[i].toString(), Wy::class.java)
             val map = HashMap<String, Any>()
             map.put("name", single.name!!)
-            map.put("singer",getSingers(single.ar!!))
+            map.put("singer", getSingers(single.ar!!))
             map.put("album", single.al!!.name!!)
             map.put("s128", "")
             map.put("sogg", "")
@@ -37,7 +37,7 @@ class WyService : MusicServices {
             val seconds = single.dt / 1000 % 60
             val secStr = if (seconds < 10) "0" + seconds.toString() else seconds.toString()
             map.put("time", (single.dt / 1000 / 60).toString() + ":" + secStr)
-            map.put("mv", single.mv)
+            map.put("mv", if (single.mv == 0) "" else single.mv)
             array.add(map)
         }
         return array
@@ -47,7 +47,7 @@ class WyService : MusicServices {
         val key = mainFormPojo.keyword
         val page = Integer.valueOf(mainFormPojo.page)
         val text = "{\"s\":\"$key\",\"type\":1,\"offset\":" + (page - 1) * pageSize + ",\"limit\":$pageSize,\"total\":true}"
-        return NetUtil.GetEncHtml("http://music.163.com/weapi/cloudsearch/get/web?csrf_token=", text, true)
+        return NetUtil.getEncHtml("http://music.163.com/weapi/cloudsearch/get/web?csrf_token=", text, true)
     }
 
     private fun getSingers(singerList: List<Ar>): String {

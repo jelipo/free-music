@@ -45,7 +45,7 @@ class QQService : MusicServices {
             val seconds = single.interval % 60
             val secStr = if (seconds < 10) "0" + seconds.toString() else seconds.toString()
             map.put("time", (single.interval / 60).toString() + ":" + secStr)
-            map.put("mv", if (single.vid == "") 0 else single.vid)
+            map.put("mv", if (single.vid == "") "" else single.vid)
             array.add(map)
         }
         return array

@@ -2,7 +2,7 @@
 <html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>搜索结果</title>
+    <title th:text="${keyword}+' - 搜索结果'">搜索结果</title>
     <meta name="viewport" content="width=device-width,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="format-detection" content="telephone=no"/>
@@ -16,10 +16,6 @@
     <style>
         body {
             font-family: Microsoft Yahei, serif;
-        }
-
-        .searchButton {
-
         }
 
         .item_lable {
@@ -129,11 +125,11 @@
 <input id="keyword" type="hidden" th:value="${keyword}" value="${keyword}">
 <input id="type" type="hidden" th:value="${type}" value="${type}">
 <input id="page" type="hidden" th:value="${page}" value="${page}">
-<button mdui-dialog="{target: '#dialog'}"
-        class="fixButton mdui-fab mdui-fab-fixed mdui-ripple mdui-color-pink"><i
-        class="mdui-icon material-icons">search</i></button>
+<button mdui-dialog="{target: '#dialog'}" class="fixButton mdui-fab mdui-fab-fixed mdui-ripple mdui-color-pink">
+    <i class="mdui-icon material-icons">search</i>
+</button>
 <div class="mdui-toolbar mdui-color-indigo">
-    <span class="mdui-typo-title"> <span th:text="*{keyword}"></span> - 搜索结果</span>
+    <span class="mdui-typo-title" th:text="${keyword}+' - 搜索结果'"></span>
     <div class="mdui-toolbar-spacer"></div>
     <div class="mdui-textfield" style="padding-top:5px">
         <input id="inputKeyword" class="input-keyword mdui-textfield-input" type="text" placeholder="输入关键词"/>
@@ -201,16 +197,8 @@
 </div>
 <!--对话框-->
 
-<footer class="mdui-color-indigo-800" style=" width: 100%;height: 100px;bottom:0px;left:0px;">
-    <div class="warn">
-        本站内容从互联网上收集而来，内容和本站无关
-    </div>
-    <div style="text-align: center;padding-top: 10px;font-size: 12px;">
-        <a style="color: #e9e9e9;text-decoration: none" href="http://www.miitbeian.gov.cn/" target="_blank">
-            2018 Springmarker. All rights reserved.备案号：鲁ICP备16035555号-1
-        </a>
-    </div>
-</footer>
+<footer th:replace="fragment::foot"></footer>
+
 <script th:inline="javascript">
 
     var typeMap = {};
