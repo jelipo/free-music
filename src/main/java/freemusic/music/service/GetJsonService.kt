@@ -22,20 +22,20 @@ class FormatService {
     }
 
     private fun getService(type: String): MusicServices? {
-        when (type) {
-            "1" -> return this.qqService
-            "2" -> return this.wyService
-            "3" -> return this.kgService
+        return when (type) {
+            "1" -> qqService
+            "2" -> wyService
+            "3" -> kgService
+            else -> qqService
         }
-        return qqService
     }
 
     @Autowired
-    private val qqService: QQService? = null
+    private val qqService: QQService = QQService()
 
     @Autowired
-    private val kgService: KgService? = null
+    private val kgService: KgService = KgService()
 
     @Autowired
-    private val wyService: WyService? = null
+    private val wyService: WyService = WyService()
 }

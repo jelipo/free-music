@@ -8,35 +8,34 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class DownloadService{
+class DownloadService {
 
     fun getDownloadUrl(type: String, quality: String, id: String): String {
         val musicDownload = getService(type)
-        return musicDownload!!.getDownloadUrl(id, quality)
+        return musicDownload.getDownloadUrl(id, quality)
     }
 
     fun getMvUrl(type: String, quality: String, id: String): String {
         val musicDownload = getService(type)
-        return musicDownload!!.getMvUrl(id, quality)
+        return musicDownload.getMvUrl(id, quality)
     }
 
 
-    private fun getService(type: String): MusicDownload? {
-        var musicDownload: MusicDownload? = null
-        when (type) {
-            "1" -> musicDownload = qqDownload
-            "2" -> musicDownload = wyDownload
-            "3" -> musicDownload = kgDownload
+    private fun getService(type: String): MusicDownload {
+        return when (type) {
+            "1" -> qqDownload
+            "2" -> wyDownload
+            "3" -> kgDownload
+            else -> qqDownload
         }
-        return musicDownload
     }
 
     @Autowired
-    private val qqDownload: QQDownload? = null
+    private val qqDownload: QQDownload = QQDownload()
 
     @Autowired
-    private val kgDownload: KgDownload? = null
+    private val kgDownload: KgDownload = KgDownload()
 
     @Autowired
-    private val wyDownload: WyDownload? = null
+    private val wyDownload: WyDownload = WyDownload()
 }

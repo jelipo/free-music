@@ -19,7 +19,6 @@ class GetJsonCtrl {
     fun getJson(@ModelAttribute("MainFormPojo") form: MainFormPojo): Map<*, *> =
             PackingResult.toSuccessMap(formatService.getFormatArray(form))
 
-
     @GetMapping("/getPristineJson.do")
     fun getPristineJson(@ModelAttribute("MainFormPojo") form: MainFormPojo): JSONObject {
         val json: String = formatService.getPristineJson(form)

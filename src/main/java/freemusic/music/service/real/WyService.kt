@@ -24,8 +24,8 @@ class WyService : MusicServices {
         }
         val jsonList = jsonResult.getJSONArray("songs")
         val array = ArrayList<Any>()
-        for (i in jsonList.indices) {
-            val single = JSON.parseObject(jsonList[i].toString(), Wy::class.java)
+        jsonList.forEach {
+            val single = JSON.parseObject(it.toString(), Wy::class.java)
             val map = HashMap<String, Any>()
             map.put("name", single.name!!)
             map.put("singer", getSingers(single.ar!!))
@@ -52,9 +52,7 @@ class WyService : MusicServices {
 
     private fun getSingers(singerList: List<Ar>): String {
         var singer = ""
-        singerList.forEach {
-            singer = it.name + " "
-        }
+        singerList.forEach { singer = "${it.name} " }
         return singer
     }
 

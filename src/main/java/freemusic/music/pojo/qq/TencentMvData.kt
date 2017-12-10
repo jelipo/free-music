@@ -3,7 +3,7 @@ package freemusic.music.pojo.qq
 data class TencentMvData(
         var dltype: Int = 0,
         var exem: Int = 0,
-        var fl: FlBean? = null,
+        var fl: FlBean = FlBean(),
         var hs: Int = 0,
         var ip: String? = null,
         var ls: Int = 0,
@@ -11,11 +11,11 @@ data class TencentMvData(
         var s: String? = null,
         var sfl: SflBean? = null,
         var tm: Int = 0,
-        var vl: VlBean? = null
+        var vl: VlBean = VlBean()
 ) {
     data class FlBean(
             var cnt: Int = 0,
-            var fi: List<FiBean>? = null
+            var fi: List<FiBean> = ArrayList(0)
     ) {
         data class FiBean(
                 var br: Int = 0,
@@ -23,7 +23,7 @@ data class TencentMvData(
                 var fs: Int = 0,
                 var id: Int = 0,
                 var lmt: Int = 0,
-                var name: String? = null,
+                var name: String = "",
                 var sb: Int = 0,
                 var sl: Int = 0
         )

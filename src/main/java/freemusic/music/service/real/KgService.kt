@@ -10,7 +10,6 @@ import freemusic.tool.HttpTool
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
-import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
 
 @Service
@@ -20,17 +19,13 @@ class KgService : MusicServices {
     private val pagesize: String? = null
 
     @Autowired
-    private val httpClient: HttpTool? = null
+    private val httpClient: HttpTool = HttpTool()
 
     override fun getFormatJson(mainFormPojo: MainFormPojo): ArrayList<*> {
         val pristineJson = getSearchResult(mainFormPojo)
         val list: JSONArray = JSONObject.parseObject(pristineJson).getJSONObject("data").getJSONArray("lists")
         val array = ArrayList<Any>()
-        for (i in list.indices) {
-            val single: Kg = JSON.parseObject(list[i].toString(), Kg::class.java)
-            val hashMap = mapPackage(single)
-            array.add(hashMap)
-        }
+        list.indices.map { JSON.parseObject(list[it].toString(), Kg::class.java) }.mapTo(array) { mapPackage(it) }
         return array
     }
 
@@ -74,18 +69,10 @@ class KgService : MusicServices {
     }
 
     override fun getSearchResult(mainFormPojo: MainFormPojo): String {
-        var keyword: String? = null
-        try {
-            keyword = URLEncoder.encode(mainFormPojo.keyword, "utf-8")
-        } catch (e: UnsupportedEncodingException) {
-            e.printStackTrace()
-        }
-
-        val url = ("http://songsearch.kugou.com/song_search_v2?"
-                + "keyword=$keyword&page=${mainFormPojo.page}&pagesize=$pagesize&filter=0&bitrate=0&isfuzzy=0&"
-                + "tag=em&inputtype=2&platform=PcFilter&userid=&clientver=8060&iscorrection=3")
-        return httpClient!!.getJsonResultWithGet(url)
+        val keyword: String = URLEncoder.encode(mainFormPojo.keyword, "utf-8")
+        val url = "http://songsearch.kugou.com/song_search_v2?" +
+                "keyword=$keyword&page=${mainFormPojo.page}&pagesize=$pagesize&filter=0&bitrate=0&isfuzzy=0&" +
+                "tag=em&inputtype=2&platform=PcFilter&userid=&clientver=8060&iscorrection=3"
+        return httpClient.getJsonResultWithGet(url)
     }
-
-
 }

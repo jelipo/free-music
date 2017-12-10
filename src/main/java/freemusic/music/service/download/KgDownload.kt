@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service
 
 @Service
 class KgDownload : MusicDownload {
+
+    @Autowired
+    private var httpTool: HttpTool = HttpTool()
+
     override fun getDownloadUrl(id: String, quality: String): String {
         val key = DigestUtils.md5Hex(id + "kgcloud")
         val url = "http://trackercdn.kugou.com/i/?key=$key&cmd=4&acceptMp3=1&hash=$id&pid=1"
@@ -40,9 +44,4 @@ class KgDownload : MusicDownload {
             else -> ""
         }
     }
-
-    @Autowired
-    private var httpTool: HttpTool? = null
-
-
 }

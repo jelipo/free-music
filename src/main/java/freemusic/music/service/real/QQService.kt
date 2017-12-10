@@ -9,7 +9,6 @@ import freemusic.tool.HttpTool
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
-import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
 import java.util.ArrayList
 import kotlin.collections.HashMap
@@ -21,16 +20,15 @@ class QQService : MusicServices {
     private val pagesize: String? = null
 
     @Autowired
-    private val httpTool: HttpTool? = null
+    private val httpTool: HttpTool = HttpTool()
 
     override fun getFormatJson(mainFormPojo: MainFormPojo): ArrayList<*> {
         val pristineJson = getSearchResult(mainFormPojo)
         val jsonList: JSONArray = JSON.parseObject(pristineJson).getJSONObject("data").getJSONObject("song").getJSONArray("list")
-        val array = ArrayList<Any>()
-        for (i in jsonList.indices) {
+        val array = ArrayList<HashMap<String, Any>>()
+        jsonList.forEach {
             val map = HashMap<String, Any>()
-
-            val single: QQPojo = JSON.parseObject(jsonList[i].toString(), QQPojo::class.java)
+            val single: QQPojo = JSON.parseObject(it.toString(), QQPojo::class.java)
             val singerList = single.singer
             val singer = StringBuilder()
             for (aSingerList: Singer in singerList) singer.append(aSingerList.name).append(" ")
@@ -52,18 +50,12 @@ class QQService : MusicServices {
     }
 
     override fun getSearchResult(mainFormPojo: MainFormPojo): String {
-        var keyword: String? = null
-        try {
-            keyword = URLEncoder.encode(mainFormPojo.keyword, "utf-8")
-        } catch (e: UnsupportedEncodingException) {
-            e.printStackTrace()
-        }
+        val keyword: String = URLEncoder.encode(mainFormPojo.keyword, "utf-8")
         val url = ("http://soso.music.qq.com/fcgi-bin/search_cp?aggr=0&catZhida=0&lossless=1&sem=1&w=$keyword&n=$pagesize" +
                 "&t=0&p=${mainFormPojo.page}&remoteplace=sizer.yqqlist.song&g_tk=5381&loginUin=0&hostUin=0&format=jsonp" +
                 "&inCharset=GB2312&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0")
-        var result = this.httpTool!!.getJsonResultWithGet(url)
+        var result = this.httpTool.getJsonResultWithGet(url)
         result = result.substring(result.indexOf("(") + 1, result.lastIndexOf(")"))
         return result
     }
-
 }
