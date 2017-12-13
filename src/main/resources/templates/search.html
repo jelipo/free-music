@@ -153,19 +153,16 @@
                 <a id="tab3" href="#example1-tab3" class="mdui-ripple" th:classappend="${type=='3'}?'mdui-tab-active'">酷狗</a>
             </div>
             <div id="example1-tab1" class="mdui-p-a-2">
-                <div id="tab1-panel" class="mdui-panel" mdui-panel="{accordion: true}">
-                    <div th:replace="${type=='1'}?~{fragment::singleItem}:~{}"></div>
-                </div>
+                <div th:replace="${type=='1'}?~{fragment::singleItem}:~{}" class="mdui-panel"
+                     mdui-panel="{accordion: true}"></div>
             </div>
             <div id="example1-tab2" class="mdui-p-a-2">
-                <div id="tab2-panel" class="mdui-panel" mdui-panel="{accordion: true}">
-                    <div th:replace="${type=='2'}?~{fragment::singleItem}:~{}"></div>
-                </div>
+                <div th:replace="${type=='2'}?~{fragment::singleItem}:~{}" class="mdui-panel"
+                     mdui-panel="{accordion: true}"></div>
             </div>
             <div id="example1-tab3" class="mdui-p-a-2">
-                <div id="tab3-panel" class="mdui-panel" mdui-panel="{accordion: true}">
-                    <div th:replace="${type=='3'}?~{fragment::singleItem}:~{}"></div>
-                </div>
+                <div th:replace="${type=='3'}?~{fragment::singleItem}:~{}" class="mdui-panel"
+                     mdui-panel="{accordion: true}"></div>
             </div>
         </div>
     </div>
@@ -175,13 +172,6 @@
 
 <div style="display: none">
 
-
-    <div id="turnpage" style="margin-top: 15px;">
-        <button onclick="" class="mdui-color-indigo turnpage_up mdui-btn-raised mdui-btn mdui-btn-icon"><i
-                class="mdui-icon material-icons">first_page</i></button>
-        <button onclick="" class="mdui-color-indigo turnpage_down mdui-btn-raised mdui-btn mdui-btn-icon">
-            <i class="mdui-icon material-icons">last_page</i></button>
-    </div>
 
 </div>
 

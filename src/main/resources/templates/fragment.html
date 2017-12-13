@@ -3,38 +3,44 @@
 <head>
     <!-- 单个item-->
     <!--/*@thymesVar id="datas" type="List"*/-->
-    <div id="singleItem" class="mdui-panel-item" th:fragment="singleItem" th:each="data:${datas}">
-        <!--/*@thymesVar id="type" type="String"*/-->
-        <!--/*@thymesVar id="data" type="freemusic.music.pojo.Data"*/-->
-        <div class="mdui-panel-item-header">
-
-            <div class="Stitle mdui-panel-item-title" th:utext="${data.name}"></div>
-            <div class="Ssinger mdui-panel-item-summary" th:utext="${data.singer}">歌手</div>
-            <div class="Salbum mdui-panel-item-summary" th:utext="${data.album}">专辑</div>
-            <div class="Stime mdui-panel-item-summary mobileNone" style="text-align:right;" th:text="${data.time}">
-                时间
+    <div th:fragment="singleItem" class="mdui-panel" mdui-panel="{accordion: true}">
+        <div class="mdui-panel-item" th:each="data:${datas}">
+            <!--/*@thymesVar id="type" type="String"*/-->
+            <div class="mdui-panel-item-header">
+                <div class="Stitle mdui-panel-item-title" th:utext="${data.name}"></div>
+                <div class="Ssinger mdui-panel-item-summary" th:utext="${data.singer}">歌手</div>
+                <div class="Salbum mdui-panel-item-summary" th:utext="${data.album}">专辑</div>
+                <div class="Stime mdui-panel-item-summary mobileNone" style="text-align:right;" th:text="${data.time}">
+                    时间
+                </div>
+                <i class="mdui-panel-item-arrow mdui-icon material-icons">&#xe313;</i>
             </div>
-            <i class="mdui-panel-item-arrow mdui-icon material-icons">&#xe313;</i>
+            <div class="mdui-panel-item-body">
+                <a th:href="@{downloadurl.do(quality='s128',id=${data.s128},type=${type})}"
+                   class="item_lable item_lable_128" th:if="${#strings.length(data.s128)}!=0" target="_blank">128</a>
+                <a th:href="@{downloadurl.do(quality='sogg',id=${data.sogg},type=${type})}"
+                   class="item_lable item_lable_OGG" th:if="${#strings.length(data.sogg)}!=0" target="_blank">OGG</a>
+                <a th:href="@{downloadurl.do(quality='s320',id=${data.s320},type=${type})}"
+                   class="item_lable item_lable_320" th:if="${#strings.length(data.s320)}!=0" target="_blank">320</a>
+                <a th:href="@{downloadurl.do(quality='SQ',id=${data.SQ},type=${type})}"
+                   class="item_lable item_lable_SQ" th:if="${#strings.length(data.SQ)}!=0" target="_blank">SQ</a>
+                <a th:href="@{getmvurl.do(quality=0,id=${data.mv},type=${type})}"
+                   class="item_lable item_lable_MV" th:if="${#strings.length(data.mv)}!=0" target="_blank"
+                   rel="noreferrer">MV</a>
+            </div>
         </div>
-        <div class="mdui-panel-item-body">
-            <a th:href="@{downloadurl.do(quality='s128',id=${data.s128},type=${type})}"
-               class="item_lable item_lable_128" th:if="${#strings.length(data.s128)}!=0" target="_blank">128</a>
-
-            <a th:href="@{downloadurl.do(quality='sogg',id=${data.sogg},type=${type})}"
-               class="item_lable item_lable_OGG" th:if="${#strings.length(data.sogg)}!=0" target="_blank">OGG</a>
-
-            <a th:href="@{downloadurl.do(quality='s320',id=${data.s320},type=${type})}"
-               class="item_lable item_lable_320" th:if="${#strings.length(data.s320)}!=0" target="_blank">320</a>
-
-            <a th:href="@{downloadurl.do(quality='SQ',id=${data.SQ},type=${type})}"
-               class="item_lable item_lable_SQ" th:if="${#strings.length(data.SQ)}!=0" target="_blank">SQ</a>
-
-            <a th:href="@{getmvurl.do(quality=0,id=${data.mv},type=${type})}"
-               class="item_lable item_lable_MV" th:if="${#strings.length(data.mv)}!=0" target="_blank" rel="noreferrer">MV</a>
-        </div>
+        <div th:replace="~{::turnPage}" style="margin-top: 15px;"></div>
     </div>
     <!-- 单个item-->
 
+    <!-- 翻页-->
+    <div th:fragment="turnPage" id="turnpage" style="margin-top: 15px;">
+        <button onclick="" class="mdui-color-indigo turnpage_up mdui-btn-raised mdui-btn mdui-btn-icon"><i
+                class="mdui-icon material-icons">first_page</i></button>
+        <button onclick="" class="mdui-color-indigo turnpage_down mdui-btn-raised mdui-btn mdui-btn-icon">
+            <i class="mdui-icon material-icons">last_page</i></button>
+    </div>
+    <!-- 翻页-->
 
     <!-- foot -->
     <footer class="mdui-color-indigo-800" style=" width: 100%;height: 100px;bottom:0px;left:0px;" th:fragment="foot">

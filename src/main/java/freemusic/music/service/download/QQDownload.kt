@@ -45,7 +45,8 @@ class QQDownload : MusicDownload {
     override fun getImgUrl(id: String, quality: String): String = ""
 
     private fun mv(id: String, html: String): String {
-        val jsonStr = html.substring(0, html.length - 1).replace("QZOutputJson=", "")
+        val jsonStr = html.substring(0, html.length - 1)
+                .replace("QZOutputJson=", "")
         val tencentMvData = JSON.parseObject(jsonStr, TencentMvData::class.java)
         val fi = tencentMvData.fl.fi
         val dic: MutableMap<String, Int> = HashMap()
@@ -74,7 +75,8 @@ class QQDownload : MusicDownload {
         val url = "http://vv.video.qq.com/getkey?format=$id&otype=json&vid=$videoId&platform=11&charge=1&filename=$fn"
         var html = httpTool.getJsonResultWithGet(url)
         if (html.isEmpty()) return ""
-        html = html.substring(0, html.length - 1).replace("QZOutputJson=", "")
+        html = html.substring(0, html.length - 1)
+                .replace("QZOutputJson=", "")
         val json = JSONObject.parseObject(html)
         return json.getString("key")
     }
