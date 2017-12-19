@@ -4,7 +4,7 @@ version '1.0-SNAPSHOT'
 
 buildscript {
     ext {
-        kotlinVersion = '1.2.0'
+        kotlinVersion = '1.2.10'
         springBootVersion = '2.0.0.M7'
     }
     repositories {
@@ -45,7 +45,7 @@ dependencies {
     compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     runtime('org.springframework.boot:spring-boot-devtools')
     testCompile('org.springframework.boot:spring-boot-starter-test')
-    compile 'com.alibaba:fastjson:1.2.41'
+    compile 'com.alibaba:fastjson:1.2.43'
     compile 'com.squareup.okhttp3:okhttp:3.9.0'
     compile 'org.apache.commons:commons-lang3:3.7'
     compile 'commons-codec:commons-codec:1.11'
