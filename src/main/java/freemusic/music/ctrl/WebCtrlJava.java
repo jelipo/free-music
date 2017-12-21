@@ -36,8 +36,13 @@ public class WebCtrlJava {
         return modelAndView;
     }
 
-    @GetMapping("/fragment.do")
-    public ModelAndView part() {
-        return new ModelAndView("fragment::singleItem");
+    @GetMapping("/searchPart.do")
+    public ModelAndView part(@ModelAttribute("MainFormPojo") MainFormPojo form) {
+        ModelAndView modelAndView = new ModelAndView("fragment::singleItem");
+        modelAndView.addObject("type", form.getType());
+        modelAndView.addObject("page", form.getPage());
+        ArrayList<?> formatArray = formatService.getFormatArray(form);
+        modelAndView.addObject("datas", formatArray);
+        return modelAndView;
     }
 }

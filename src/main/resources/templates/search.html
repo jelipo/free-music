@@ -181,7 +181,7 @@
         <input id="dialoginput" class="mdui-textfield-input" type="text" placeholder="请输入关键词"/>
     </div>
     <div class="mdui-dialog-actions">
-        <button class="mdui-btn mdui-ripple " mdui-dialog-close>取消</button>
+        <button class="mdui-btn mdui-ripple" mdui-dialog-close>取消</button>
         <button class="mdui-btn mdui-ripple" onclick="dialogsearch()">确定</button>
     </div>
 </div>
@@ -238,26 +238,23 @@
             barOnClick(3);
         });
 
-        function barOnClick(toTabId) {
+        function barOnClick(toTypeId) {
             var typeIdNow = $("#type").val();
             var keyword = $("#keyword").val();
-            var tabHtml = $("#example1-tab2").html();
-            var state = {title: "搜索结果", url: window.location.href, tabId: typeIdNow, tabHtml: tabHtml};
-            console.log(tabHtml);
-            window.history.pushState(state, null, "search.do?keyword=" + keyword + "&page=1&type=" + toTabId)
+            var tabHtmlNow = $("#example1-tab" + typeIdNow).html();
+            $.ajax({
+                url: "searchPart.do?keyword=" + keyword + "&page=1&type=" + toTypeId, success: function (data) {
+                    afterBarOnClick(data, keyword, typeIdNow, tabHtmlNow, toTypeId)
+                }
+            });
+
+        }
+        function afterBarOnClick(data, keyword, typeIdNow, tabHtmlNow, toTypeId) {
+            var state = {title: "搜索结果", url: window.location.href, tabId: typeIdNow, tabHtml: tabHtmlNow};
+            window.history.pushState(state, null, "search.do?keyword=" + keyword + "&page=1&type=" + toTypeId);
+            $("#example1-tab" + toTypeId).html(data);
         }
 
-        $('#inputKeyword').bind('keyup', function (event) {
-            if (event.keyCode == "13") {
-                //回车执行查询
-                var keyword = $("#inputKeyword").val();
-                if (keyword == null || keyword === undefined || keyword === "") {
-                    mdui.snackbar({message: '未输入关键词！'});
-                } else {
-                    location.href = "search.do?keyword=" + keyword + "&page=1&type=" + $("#type").val();
-                }
-            }
-        });
     });
 </script>
 <script>
