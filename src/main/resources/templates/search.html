@@ -11,8 +11,6 @@
     <link href="../static/css/mdui.min.css" th:href="@{/css/mdui.min.css}" rel="stylesheet">
     <script type="text/javascript" src="../static/js/jquery-3.2.1.js" th:src="@{/js/jquery-3.2.1.js}"></script>
     <script type="text/javascript" src="../static/js/mdui.min.js" th:src="@{/js/mdui.min.js}"></script>
-    <script type="text/javascript" src="../static/js/main.js" th:src="@{/js/main.js}"></script>
-
     <style>
         body {
             font-family: Microsoft Yahei, serif;
@@ -153,26 +151,19 @@
                 <a id="tab3" href="#example1-tab3" class="mdui-ripple" th:classappend="${type=='3'}?'mdui-tab-active'">酷狗</a>
             </div>
             <div id="example1-tab1" class="mdui-p-a-2">
-                <div th:replace="${type=='1'}?~{fragment::singleItem}:~{}" class="mdui-panel"
-                     mdui-panel="{accordion: true}"></div>
+                <div id="tab1-panel" th:replace="${type=='1'}?~{fragment::singleItem}:~{fragment::nullTanPanel(1)}"
+                     class="mdui-panel" mdui-panel="{accordion: true}"></div>
             </div>
             <div id="example1-tab2" class="mdui-p-a-2">
-                <div th:replace="${type=='2'}?~{fragment::singleItem}:~{}" class="mdui-panel"
-                     mdui-panel="{accordion: true}"></div>
+                <div id="tab2-panel" th:replace="${type=='2'}?~{fragment::singleItem}:~{fragment::nullTanPanel(2)}"
+                     class="mdui-panel" mdui-panel="{accordion: true}"></div>
             </div>
             <div id="example1-tab3" class="mdui-p-a-2">
-                <div th:replace="${type=='3'}?~{fragment::singleItem}:~{}" class="mdui-panel"
-                     mdui-panel="{accordion: true}"></div>
+                <div id="tab3-panel" th:replace="${type=='3'}?~{fragment::singleItem}:~{fragment::nullTanPanel(3)}"
+                     class="mdui-panel" mdui-panel="{accordion: true}"></div>
             </div>
         </div>
     </div>
-
-</div>
-
-
-<div style="display: none">
-
-
 </div>
 
 <!--对话框-->
@@ -191,12 +182,6 @@
 
 <script th:inline="javascript">
 
-    var typeMap = {};
-    typeMap['128'] = "s128";
-    typeMap['OGG'] = "sogg";
-    typeMap['320'] = "s320";
-    typeMap['SQ'] = "SQ";
-
     function showInput() {
         $("#inputKeyword").focus();
     }
@@ -214,19 +199,16 @@
         mdui.snackbar({message: '没有上一页了！'});
     }
 
-
     $(function () {
         var tip = new mdui.Tooltip('#search', {
             content: '搜索按钮在这'
         });
         showTip();
-
         function showTip() {
             if (window.innerWidth > 800) {
                 tip.open();
             }
         }
-
 
         document.getElementById('tab1').addEventListener('show.mdui.tab', function () {
             barOnClick(1);
@@ -247,14 +229,14 @@
                     afterBarOnClick(data, keyword, typeIdNow, tabHtmlNow, toTypeId)
                 }
             });
-
         }
+
         function afterBarOnClick(data, keyword, typeIdNow, tabHtmlNow, toTypeId) {
             var state = {title: "搜索结果", url: window.location.href, tabId: typeIdNow, tabHtml: tabHtmlNow};
             window.history.pushState(state, null, "search.do?keyword=" + keyword + "&page=1&type=" + toTypeId);
             $("#example1-tab" + toTypeId).html(data);
+            mdui.mutation();
         }
-
     });
 </script>
 <script>
@@ -269,10 +251,8 @@
         a.src = g;
         m.parentNode.insertBefore(a, m)
     })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
     ga('create', 'UA-92012528-3', 'auto');
     ga('send', 'pageview');
-
 </script>
 </body>
 </html>

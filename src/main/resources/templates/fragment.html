@@ -33,6 +33,9 @@
     </div>
     <!-- 单个item-->
 
+    <div  th:fragment="nullTanPanel(id)" th:id="'tab'+${id}+'-panel'" class="mdui-panel" mdui-panel="{accordion: true}"></div>
+
+
     <!-- 翻页-->
     <div th:fragment="turnPage" id="turnpage" style="margin-top: 15px;">
         <button onclick="" class="mdui-color-indigo turnpage_up mdui-btn-raised mdui-btn mdui-btn-icon"><i
