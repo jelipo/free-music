@@ -181,7 +181,6 @@
 <footer th:replace="fragment::foot"></footer>
 
 <script th:inline="javascript">
-
     function showInput() {
         $("#inputKeyword").focus();
     }
@@ -195,8 +194,16 @@
         }
     }
 
-    function showNoPage() {
-        mdui.snackbar({message: '没有上一页了！'});
+    function turnPage(turnType) {
+        var type = $("#type").val();
+        var pageNow = parseInt($("#page").val());
+        var toPage = 0;
+        if (turnType == "last") {
+            toPage = pageNow - 1;
+        } else {
+            toPage = pageNow + 1;
+        }
+        location.href = "search.do?keyword=不错&page=" + toPage + "&type=" + type;
     }
 
     $(function () {
@@ -204,6 +211,7 @@
             content: '搜索按钮在这'
         });
         showTip();
+
         function showTip() {
             if (window.innerWidth > 800) {
                 tip.open();
@@ -236,6 +244,8 @@
             window.history.pushState(state, null, "search.do?keyword=" + keyword + "&page=1&type=" + toTypeId);
             $("#example1-tab" + toTypeId).html(data);
             mdui.mutation();
+            $("#type").val(toTypeId);
+            $("#page").val("1");
         }
     });
 </script>

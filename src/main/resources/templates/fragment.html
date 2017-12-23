@@ -38,9 +38,9 @@
 
     <!-- 翻页-->
     <div th:fragment="turnPage" id="turnpage" style="margin-top: 15px;">
-        <button onclick="" class="mdui-color-indigo turnpage_up mdui-btn-raised mdui-btn mdui-btn-icon"><i
+        <button th:if="${page}!='1'" onclick="turnPage('last')" class="mdui-color-indigo turnpage_up mdui-btn-raised mdui-btn mdui-btn-icon"><i
                 class="mdui-icon material-icons">first_page</i></button>
-        <button onclick="" class="mdui-color-indigo turnpage_down mdui-btn-raised mdui-btn mdui-btn-icon">
+        <button onclick="turnPage('next')" class="mdui-color-indigo turnpage_down mdui-btn-raised mdui-btn mdui-btn-icon">
             <i class="mdui-icon material-icons">last_page</i></button>
     </div>
     <!-- 翻页-->
