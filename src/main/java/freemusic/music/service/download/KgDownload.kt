@@ -15,7 +15,7 @@ class KgDownload : MusicDownload {
     override fun getDownloadUrl(id: String, quality: String): String {
         val key = DigestUtils.md5Hex(id + "kgcloud")
         val url = "http://trackercdn.kugou.com/i/?key=$key&cmd=4&acceptMp3=1&hash=$id&pid=1"
-        val result = httpTool!!.getJsonResultWithGet(url)
+        val result = httpTool.getJsonResultWithGet(url)
         if (result.contains("Bad key") || result.contains("The Resource Needs to be Paid")) return ""
         val json = JSONObject.parseObject(result)
         return json.getString("url")
@@ -23,7 +23,7 @@ class KgDownload : MusicDownload {
 
     override fun getMvUrl(id: String, quality: String): String {
         val key = DigestUtils.md5Hex(id + "kugoumvcloud")
-        val result = httpTool!!.getJsonResultWithGet("http://trackermv.kugou.com/interface/index?cmd=100&pid=6&ext=mp4&hash=$id&quality=-1&key=$key&backupdomain=1")
+        val result = httpTool.getJsonResultWithGet("http://trackermv.kugou.com/interface/index?cmd=100&pid=6&ext=mp4&hash=$id&quality=-1&key=$key&backupdomain=1")
         if (result.contains("Bad key") || result.contains("The Resource Needs to be Paid")) return ""
         val mvData = JSONObject.parseObject(result).getJSONObject("mvdata")
         return getMvUrl(mvData)

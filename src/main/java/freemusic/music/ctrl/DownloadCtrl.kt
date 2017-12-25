@@ -19,6 +19,7 @@ class DownloadCtrl {
 
     @GetMapping("/getmvurl.do")
     fun getMv(@RequestParam type: String, @RequestParam id: String, @RequestParam quality: String): String {
+
         val url = downloadService!!.getMvUrl(type, quality, id)
         return if (url == "") "sorry" else "redirect:$url"
     }

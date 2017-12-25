@@ -37,7 +37,12 @@ repositories {
     maven { url "https://repo.spring.io/milestone" }
 }
 
+bootJar {
+    launchScript()
+}
+
 dependencies {
+    compile("org.springframework.boot:spring-boot-devtools")
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")

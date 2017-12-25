@@ -195,7 +195,6 @@
     }
 
     function turnPage(turnType) {
-        var type = $("#type").val();
         var pageNow = parseInt($("#page").val());
         var toPage = 0;
         if (turnType == "last") {
@@ -203,7 +202,47 @@
         } else {
             toPage = pageNow + 1;
         }
-        location.href = "search.do?keyword=不错&page=" + toPage + "&type=" + type;
+        var typeIdNow = $("#type").val();
+        var keyword = $("#keyword").val();
+        var tabHtmlNow = $("#example1-tab" + typeIdNow).html();
+        $.ajax({
+            url: "searchPart.do?keyword=" + keyword + "&page=" + toPage + "&type=" + typeIdNow,
+            success: function (data) {
+                afterTurnPage(data, pageNow, tabHtmlNow, toPage, keyword, typeIdNow)
+            }
+        });
+    }
+
+    function afterTurnPage(data, pageNow, tabHtmlNow, toPage, keyword, typeIdNow) {
+        var state = {title: "搜索结果", url: window.location.href, page: pageNow, tabHtml: tabHtmlNow};
+        $("#example1-tab" + typeIdNow).html(data);
+        mdui.mutation();
+        afterChangePage(state, typeIdNow, toPage, keyword);
+    }
+
+
+    function afterChangePage(state, type, page, keyword) {
+        window.history.pushState(state, null, "search.do?keyword=" + keyword + "&page=" + page + "&type=" + type);
+        $("#type").val(type);
+        $("#page").val(page);
+        $("#keyword").val(keyword);
+    }
+
+    function barOnClick(toTypeId) {
+        var typeIdNow = $("#type").val();
+        var keyword = $("#keyword").val();
+        var tabHtmlNow = $("#example1-tab" + typeIdNow).html();
+        $.ajax({
+            url: "searchPart.do?keyword=" + keyword + "&page=1&type=" + toTypeId, success: function (data) {
+                afterBarOnClick(data, keyword, typeIdNow, tabHtmlNow, toTypeId)
+            }
+        });
+    }
+    function afterBarOnClick(data, keyword, typeIdNow, tabHtmlNow, toTypeId) {
+        var state = {title: "搜索结果", url: window.location.href, tabId: typeIdNow, tabHtml: tabHtmlNow};
+        $("#example1-tab" + toTypeId).html(data);
+        mdui.mutation();
+        afterChangePage(state, toTypeId, "1", keyword);
     }
 
     $(function () {
@@ -227,26 +266,6 @@
         document.getElementById('tab3').addEventListener('show.mdui.tab', function () {
             barOnClick(3);
         });
-
-        function barOnClick(toTypeId) {
-            var typeIdNow = $("#type").val();
-            var keyword = $("#keyword").val();
-            var tabHtmlNow = $("#example1-tab" + typeIdNow).html();
-            $.ajax({
-                url: "searchPart.do?keyword=" + keyword + "&page=1&type=" + toTypeId, success: function (data) {
-                    afterBarOnClick(data, keyword, typeIdNow, tabHtmlNow, toTypeId)
-                }
-            });
-        }
-
-        function afterBarOnClick(data, keyword, typeIdNow, tabHtmlNow, toTypeId) {
-            var state = {title: "搜索结果", url: window.location.href, tabId: typeIdNow, tabHtml: tabHtmlNow};
-            window.history.pushState(state, null, "search.do?keyword=" + keyword + "&page=1&type=" + toTypeId);
-            $("#example1-tab" + toTypeId).html(data);
-            mdui.mutation();
-            $("#type").val(toTypeId);
-            $("#page").val("1");
-        }
     });
 </script>
 <script>
