@@ -9,7 +9,7 @@
 　　禁止使用此工具进行下载。<br>
 　　使用此工具获取的内容与本人无关。<br>
 ## 技术
-　　前期使用Java编写，后期改用Kotlin重写。
+　　前期使用Java编写，后期改用Kotlin重写。<br>
 　　框架使用SpringBoot。<br>
 　　前端方面，ui使用的MD风格，改版后ui框架使用的是[MDUI框架](https://github.com/zdhxiong/mdui/)<br>
 ## 测试
