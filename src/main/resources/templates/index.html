@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="format-detection" content="telephone=no"/>
-    <link href="../static/css/mdui.min.css" th:href="@{/css/mdui.min.css}" rel="stylesheet">
-    <script type="text/javascript" src="../static/js/jquery-3.2.1.js" th:src="@{/js/jquery-3.2.1.js}"></script>
-    <script type="text/javascript" src="../static/js/mdui.min.js" th:src="@{/js/mdui.min.js}"></script>
+    <link href="../static/css/mdui.min.css" th:href="'//cdn.bootcss.com/mdui/0.4.0/css/mdui.min.css'" rel="stylesheet">
+    <script type="text/javascript" src="../static/js/jquery-3.2.1.js"
+            th:src="'//cdn.bootcss.com/jquery/3.2.1/jquery.min.js'"></script>
+    <script type="text/javascript" src="../static/js/mdui.min.js"
+            th:src="'//cdn.bootcss.com/mdui/0.4.0/js/mdui.min.js'"></script>
     <style>
         body {
-            font-family: Microsoft Yahei,serif;
+            font-family: Microsoft Yahei, serif;
         }
 
         .main {
@@ -93,6 +95,7 @@
             $('#submitButton').click();
         }
     });
+
     function submit() {
         var type;
         if (document.getElementById("group1").checked) {
@@ -117,18 +120,16 @@
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
         a = s.createElement(o),
             m = s.getElementsByTagName(o)[0];
         a.async = 1;
         a.src = g;
         m.parentNode.insertBefore(a, m)
     })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
     ga('create', 'UA-92012528-3', 'auto');
     ga('send', 'pageview');
-
 </script>
 </body>
 </html>

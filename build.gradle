@@ -4,18 +4,19 @@ version '1.0-SNAPSHOT'
 
 buildscript {
     ext {
-        kotlinVersion = '1.2.10'
-        springBootVersion = '2.0.0.M7'
+        kotlin_version = '1.2.21'
+        springBootVersion = '2.0.0.RC2'
     }
     repositories {
-        mavenCentral()
-        maven { url "https://repo.spring.io/snapshot" }
-        maven { url "https://repo.spring.io/milestone" }
+        maven {
+            url 'https://repo.spring.io/libs-milestone'
+        }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
-        classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
+        classpath 'org.springframework:springloaded:1.2.7.RELEASE'
 
     }
 }
@@ -45,9 +46,9 @@ dependencies {
     compile("org.springframework.boot:spring-boot-devtools")
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
     compile('org.springframework.boot:spring-boot-starter-web')
-    compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")
-    compile("org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}")
-    compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
+    compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlin_version}")
+    compile("org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}")
+    compile("org.jetbrains.kotlin:kotlin-reflect:${kotlin_version}")
     runtime('org.springframework.boot:spring-boot-devtools')
     testCompile('org.springframework.boot:spring-boot-starter-test')
     compile 'com.alibaba:fastjson:1.2.43'
