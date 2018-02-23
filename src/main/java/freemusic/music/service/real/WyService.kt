@@ -27,17 +27,17 @@ class WyService : MusicServices {
         jsonList.forEach {
             val single = JSON.parseObject(it.toString(), Wy::class.java)
             val map = HashMap<String, Any>()
-            map.put("name", single.name!!)
-            map.put("singer", getSingers(single.ar!!))
-            map.put("album", single.al!!.name!!)
-            map.put("s128", "")
-            map.put("sogg", "")
-            map.put("s320", single.id)
-            map.put("SQ", "")
+            map["name"] = single.name!!
+            map["singer"] = getSingers(single.ar!!)
+            map["album"] = single.al!!.name!!
+            map["s128"] = ""
+            map["sogg"] = ""
+            map["s320"] = single.id
+            map["SQ"] = ""
             val seconds = single.dt / 1000 % 60
             val secStr = if (seconds < 10) "0" + seconds.toString() else seconds.toString()
-            map.put("time", (single.dt / 1000 / 60).toString() + ":" + secStr)
-            map.put("mv", if (single.mv == 0) "" else single.mv)
+            map["time"] = (single.dt / 1000 / 60).toString() + ":" + secStr
+            map["mv"] = if (single.mv == 0) "" else single.mv
             array.add(map)
         }
         return array

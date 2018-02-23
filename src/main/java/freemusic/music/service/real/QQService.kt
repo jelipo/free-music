@@ -32,18 +32,18 @@ class QQService : MusicServices {
             val singerList = single.singer
             val singer = StringBuilder()
             for (aSingerList: Singer in singerList) singer.append(aSingerList.name).append(" ")
-            map.put("singer", singer)
-            map.put("name", single.songname)
-            map.put("album", single.albumname)
-            map.put("s128", if (single.size128 == 0) "" else single.songmid)
-            map.put("s320", if (single.size320 == 0) "" else single.songmid)
-            map.put("sogg", if (single.sizeogg == 0) "" else single.songmid)
-            map.put("SQ", "")
+            map["singer"] = singer
+            map["name"] = single.songname
+            map["album"] = single.albumname
+            map["s128"] = if (single.size128 == 0) "" else single.songmid
+            map["s320"] = if (single.size320 == 0) "" else single.songmid
+            map["sogg"] = if (single.sizeogg == 0) "" else single.songmid
+            map["SQ"] = ""
             //把小于10的秒数前面加个“0”
             val seconds = single.interval % 60
             val secStr = if (seconds < 10) "0" + seconds.toString() else seconds.toString()
-            map.put("time", (single.interval / 60).toString() + ":" + secStr)
-            map.put("mv", if (single.vid == "") "" else single.vid)
+            map["time"] = (single.interval / 60).toString() + ":" + secStr
+            map["mv"] = if (single.vid == "") "" else single.vid
             array.add(map)
         }
         return array
