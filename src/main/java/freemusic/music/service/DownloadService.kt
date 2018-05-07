@@ -31,11 +31,11 @@ class DownloadService {
     }
 
     @Autowired
-    private val qqDownload: QQDownload = QQDownload()
+    private lateinit var qqDownload: QQDownload
 
     @Autowired
-    private val kgDownload: KgDownload = KgDownload()
+    private lateinit var kgDownload: KgDownload
 
     @Autowired
-    private val wyDownload: WyDownload = WyDownload()
+    private lateinit var wyDownload: WyDownload
 }

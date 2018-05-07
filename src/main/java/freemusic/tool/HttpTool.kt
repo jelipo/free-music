@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service
 class HttpTool {
 
     @Autowired
-    private val okHttpClient: OkHttpClient? = null
+    private lateinit var okHttpClient: OkHttpClient
 
     fun getJsonResultWithGet(url: String): String {
         val request = Request.Builder().url(url).build()
-        val response: Response = okHttpClient!!.newCall(request).execute()
+        val response: Response = okHttpClient.newCall(request).execute()
         if (!response.isSuccessful) return ""
         return response.body()!!.string()
     }

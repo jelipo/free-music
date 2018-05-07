@@ -15,15 +15,15 @@ import kotlin.collections.HashMap
 class QQDownload : MusicDownload {
 
     @Autowired
-    private val httpTool: HttpTool = HttpTool()
+    private lateinit var httpTool: HttpTool
 
     @Autowired
-    private val httpClient: OkHttpClient = OkHttpClient()
+    private lateinit var httpClient: OkHttpClient
 
     override fun getDownloadUrl(id: String, quality: String): String {
         val nowTime = System.currentTimeMillis()
         val guid = Random(nowTime).nextLong()
-        val key = getKey(nowTime, guid)
+        val key = getKey(guid)
         return when (quality) {
             "s128" -> "http://ws.stream.qqmusic.qq.com/M500$id.mp3?vkey=$key&guid=$guid&fromtag=0"
             "sogg" -> "http://ws.stream.qqmusic.qq.com/O600$id.ogg?vkey=$key&guid=$guid&fromtag=50"
@@ -50,7 +50,7 @@ class QQDownload : MusicDownload {
         val tencentMvData = JSON.parseObject(jsonStr, TencentMvData::class.java)
         val fi = tencentMvData.fl.fi
         val dic: MutableMap<String, Int> = HashMap()
-        fi.forEach { dic.put(it.name, it.id) }
+        fi.forEach { dic[it.name] = it.id }
         val mvID: Int = when (fi.size) {
             4 -> dic["fhd"]!!
             3 -> dic["shd"]!!
@@ -62,8 +62,8 @@ class QQDownload : MusicDownload {
         return tencentMvData.vl.vi!![0].ul!!.ui!![0].url + fn + "?vkey=$vkey"
     }
 
-    private fun getKey(nowTime: Long, guid: Long): String {
-        val url = "http://base.music.qq.com/fcgi-bin/fcg_musicexpress.fcg?json=3&guid=" + guid
+    private fun getKey(guid: Long): String {
+        val url = "http://base.music.qq.com/fcgi-bin/fcg_musicexpress.fcg?json=3&guid=$guid"
         val html = httpTool.getJsonResultWithGet(url)
         val jsonStr = html.substring(html.indexOf("(") + 1, html.lastIndexOf(")"))
         val json = JSONObject.parseObject(jsonStr)
@@ -75,8 +75,7 @@ class QQDownload : MusicDownload {
         val url = "http://vv.video.qq.com/getkey?format=$id&otype=json&vid=$videoId&platform=11&charge=1&filename=$fn"
         var html = httpTool.getJsonResultWithGet(url)
         if (html.isEmpty()) return ""
-        html = html.substring(0, html.length - 1)
-                .replace("QZOutputJson=", "")
+        html = html.substring(0, html.length - 1).replace("QZOutputJson=", "")
         val json = JSONObject.parseObject(html)
         return json.getString("key")
     }

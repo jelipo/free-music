@@ -17,10 +17,10 @@ import kotlin.collections.HashMap
 class QQService : MusicServices {
 
     @Value("\${search.pagesize}")
-    private val pagesize: String? = null
+    private lateinit var pagesize: String
 
     @Autowired
-    private val httpTool: HttpTool = HttpTool()
+    private lateinit var httpTool: HttpTool
 
     override fun getFormatJson(mainFormPojo: MainFormPojo): ArrayList<*> {
         val pristineJson = getSearchResult(mainFormPojo)

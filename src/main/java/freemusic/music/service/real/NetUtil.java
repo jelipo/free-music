@@ -14,7 +14,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by qtfreet00 on 2017/2/5.
+ * 源自开源项目
+ * @author qtfreet00
+ * @date 2017/2/5
  */
 public class NetUtil {
     private static final OkHttpClient client = new OkHttpClient();

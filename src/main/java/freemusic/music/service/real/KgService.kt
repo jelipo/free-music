@@ -3,7 +3,6 @@ package freemusic.music.service.real
 import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.JSONArray
 import com.alibaba.fastjson.JSONObject
-import freemusic.music.pojo.Data
 import freemusic.music.pojo.MainFormPojo
 import freemusic.music.pojo.kg.Kg
 import freemusic.tool.HttpTool
@@ -16,10 +15,10 @@ import java.net.URLEncoder
 class KgService : MusicServices {
 
     @Value("\${search.pagesize}")
-    private val pagesize: String? = null
+    private lateinit var pagesize: String
 
     @Autowired
-    private val httpClient: HttpTool = HttpTool()
+    private lateinit var httpClient: HttpTool
 
     override fun getFormatJson(mainFormPojo: MainFormPojo): ArrayList<*> {
         val pristineJson = getSearchResult(mainFormPojo)

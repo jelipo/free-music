@@ -46,7 +46,7 @@ class WyDownload : MusicDownload {
         for (i in 0 until arraySize) {
             val single = array.getJSONObject(i)
             arr[i] = single.getInteger("br")!!
-            map.put(arr[i], single)
+            map[arr[i]] = single
         }
         Arrays.sort(arr)
         val bigJson = map[arr[arraySize - 1]]

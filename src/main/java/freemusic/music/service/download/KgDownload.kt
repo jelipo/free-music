@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service
 class KgDownload : MusicDownload {
 
     @Autowired
-    private var httpTool: HttpTool = HttpTool()
+    private lateinit var httpTool: HttpTool
 
     override fun getDownloadUrl(id: String, quality: String): String {
         val key = DigestUtils.md5Hex(id + "kgcloud")

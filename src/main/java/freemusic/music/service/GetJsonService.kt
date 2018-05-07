@@ -31,11 +31,11 @@ class FormatService {
     }
 
     @Autowired
-    private val qqService: QQService = QQService()
+    private lateinit var qqService: QQService
 
     @Autowired
-    private val kgService: KgService = KgService()
+    private lateinit var kgService: KgService
 
     @Autowired
-    private val wyService: WyService = WyService()
+    private lateinit var wyService: WyService
 }
