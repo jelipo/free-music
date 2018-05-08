@@ -1,7 +1,5 @@
 package freemusic.music.pojo.kg
 
-import com.fasterxml.jackson.annotation.JsonProperty
-
 
 data class Kg(
         var resBitrate: Int = 0,

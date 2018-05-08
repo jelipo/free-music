@@ -1,6 +1,6 @@
 package freemusic.music.ctrl
 
-import freemusic.music.pojo.MainFormPojo
+import freemusic.music.pojo.SearchParams
 import freemusic.music.service.FormatService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
@@ -15,7 +15,7 @@ class WebCtrlJava {
     private val formatService: FormatService? = null
 
     @GetMapping("/MainSearch.do")
-    fun mainSearch(@ModelAttribute("MainFormPojo") form: MainFormPojo, redirect: RedirectAttributes): String {
+    fun mainSearch(@ModelAttribute("SearchParams") form: SearchParams, redirect: RedirectAttributes): String {
         redirect.addAttribute("keyword", form.keyword)
         redirect.addAttribute("type", form.type)
         redirect.addAttribute("page", form.page)
@@ -23,7 +23,7 @@ class WebCtrlJava {
     }
 
     @GetMapping("/search.do")
-    fun search(@ModelAttribute("MainFormPojo") form: MainFormPojo): ModelAndView {
+    fun search(@ModelAttribute("SearchParams") form: SearchParams): ModelAndView {
         val modelAndView = ModelAndView("search")
         modelAndView.addObject("type", form.type)
         modelAndView.addObject("keyword", form.keyword)
@@ -34,7 +34,7 @@ class WebCtrlJava {
     }
 
     @GetMapping("/searchPart.do")
-    fun part(@ModelAttribute("MainFormPojo") form: MainFormPojo): ModelAndView {
+    fun part(@ModelAttribute("SearchParams") form: SearchParams): ModelAndView {
         val modelAndView = ModelAndView("fragment::singleItem")
         modelAndView.addObject("type", form.type)
         modelAndView.addObject("page", form.page)

@@ -1,10 +1,10 @@
 package freemusic.music.service.real
 
-import freemusic.music.pojo.MainFormPojo
+import freemusic.music.pojo.SearchParams
 import java.util.ArrayList
 
 interface MusicServices{
-    fun getFormatJson(mainFormPojo: MainFormPojo): ArrayList<*>
+    fun getFormatJson(mainFormPojo: SearchParams): ArrayList<*>
 
-    fun getSearchResult(mainFormPojo: MainFormPojo): String
+    fun getSearchResult(mainFormPojo: SearchParams): String
 }

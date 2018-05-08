@@ -1,6 +1,6 @@
 package freemusic.music.service
 
-import freemusic.music.pojo.MainFormPojo
+import freemusic.music.pojo.SearchParams
 import freemusic.music.service.real.KgService
 import freemusic.music.service.real.MusicServices
 import freemusic.music.service.real.QQService
@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service
 @Service
 class FormatService {
 
-    fun getFormatArray(mainFormPojo: MainFormPojo): ArrayList<*> {
+    fun getFormatArray(mainFormPojo: SearchParams): ArrayList<*> {
         val musicService = getService(mainFormPojo.type)
         return musicService.getFormatJson(mainFormPojo)
     }
 
-    fun getPristineJson(mainFormPojo: MainFormPojo): String {
+    fun getPristineJson(mainFormPojo: SearchParams): String {
         val musicService = getService(mainFormPojo.type)
         return musicService.getSearchResult(mainFormPojo)
     }

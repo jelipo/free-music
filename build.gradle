@@ -43,6 +43,12 @@ dependencies {
     compile("com.fasterxml.jackson.module:jackson-module-kotlin")
 }
 
+idea {
+    module {
+        downloadSources = true
+    }
+}
+
 compileKotlin {
     kotlinOptions {
         freeCompilerArgs = ["-Xjsr305=strict"]

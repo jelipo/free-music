@@ -2,7 +2,7 @@ package freemusic.music.service.real
 
 import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.JSONObject
-import freemusic.music.pojo.MainFormPojo
+import freemusic.music.pojo.SearchParams
 import freemusic.music.pojo.wy.Ar
 import freemusic.music.pojo.wy.Wy
 import org.springframework.beans.factory.annotation.Value
@@ -16,7 +16,7 @@ class WyService : MusicServices {
     @Value("\${search.pagesize}")
     private val pageSize: Int = 0
 
-    override fun getFormatJson(mainFormPojo: MainFormPojo): ArrayList<*> {
+    override fun getFormatJson(mainFormPojo: SearchParams): ArrayList<*> {
         val searchResult = getSearchResult(mainFormPojo)
         val jsonResult = JSONObject.parseObject(searchResult).getJSONObject("result")
         if (jsonResult.getInteger("songCount") == 0) {
@@ -43,7 +43,7 @@ class WyService : MusicServices {
         return array
     }
 
-    override fun getSearchResult(mainFormPojo: MainFormPojo): String {
+    override fun getSearchResult(mainFormPojo: SearchParams): String {
         val key = mainFormPojo.keyword
         val page = Integer.valueOf(mainFormPojo.page)
         val text = "{\"s\":\"$key\",\"type\":1,\"offset\":" + (page - 1) * pageSize + ",\"limit\":$pageSize,\"total\":true}"

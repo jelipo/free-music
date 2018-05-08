@@ -3,7 +3,7 @@ package freemusic.music.service.real
 import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.JSONArray
 import com.alibaba.fastjson.JSONObject
-import freemusic.music.pojo.MainFormPojo
+import freemusic.music.pojo.SearchParams
 import freemusic.music.pojo.kg.Kg
 import freemusic.tool.HttpTool
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,7 +20,7 @@ class KgService : MusicServices {
     @Autowired
     private lateinit var httpClient: HttpTool
 
-    override fun getFormatJson(mainFormPojo: MainFormPojo): ArrayList<*> {
+    override fun getFormatJson(mainFormPojo: SearchParams): ArrayList<*> {
         val pristineJson = getSearchResult(mainFormPojo)
         val list: JSONArray = JSONObject.parseObject(pristineJson).getJSONObject("data").getJSONArray("lists")
         val array = ArrayList<Any>()
@@ -50,7 +50,7 @@ class KgService : MusicServices {
         return text.replace("<em>", "").replace("</em>", "")
     }
 
-    override fun getSearchResult(mainFormPojo: MainFormPojo): String {
+    override fun getSearchResult(mainFormPojo: SearchParams): String {
         val keyword: String = URLEncoder.encode(mainFormPojo.keyword, "utf-8")
         val url = "http://songsearch.kugou.com/song_search_v2?" +
                 "keyword=$keyword&page=${mainFormPojo.page}&pagesize=$pagesize&filter=0&bitrate=0&isfuzzy=0&" +

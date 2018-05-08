@@ -2,7 +2,7 @@ package freemusic.music.service.real
 
 import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.JSONArray
-import freemusic.music.pojo.MainFormPojo
+import freemusic.music.pojo.SearchParams
 import freemusic.music.pojo.qq.QQPojo
 import freemusic.music.pojo.qq.Singer
 import freemusic.tool.HttpTool
@@ -22,7 +22,7 @@ class QQService : MusicServices {
     @Autowired
     private lateinit var httpTool: HttpTool
 
-    override fun getFormatJson(mainFormPojo: MainFormPojo): ArrayList<*> {
+    override fun getFormatJson(mainFormPojo: SearchParams): ArrayList<*> {
         val pristineJson = getSearchResult(mainFormPojo)
         val jsonList: JSONArray = JSON.parseObject(pristineJson).getJSONObject("data").getJSONObject("song").getJSONArray("list")
         val array = ArrayList<HashMap<String, Any>>()
@@ -49,7 +49,7 @@ class QQService : MusicServices {
         return array
     }
 
-    override fun getSearchResult(mainFormPojo: MainFormPojo): String {
+    override fun getSearchResult(mainFormPojo: SearchParams): String {
         val keyword: String = URLEncoder.encode(mainFormPojo.keyword, "utf-8")
         val url = ("http://soso.music.qq.com/fcgi-bin/search_cp?aggr=0&catZhida=0&lossless=1&sem=1&w=$keyword&n=$pagesize" +
                 "&t=0&p=${mainFormPojo.page}&remoteplace=sizer.yqqlist.song&g_tk=5381&loginUin=0&hostUin=0&format=jsonp" +
