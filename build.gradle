@@ -1,7 +1,6 @@
 group 'com.springmarker'
 version '1.5.1'
 
-
 buildscript {
     ext {
         kotlin_version = '1.2.41'
