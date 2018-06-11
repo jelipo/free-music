@@ -12,7 +12,7 @@ import java.util.*
 import kotlin.collections.HashMap
 
 @Service
-class QQDownload : MusicDownload {
+class QQDownload : MusicDownloadService {
 
     @Autowired
     private lateinit var httpTool: HttpTool

@@ -13,7 +13,7 @@ import java.util.*
 import kotlin.experimental.xor
 
 @Service
-class WyDownload : MusicDownload {
+class WyDownload : MusicDownloadService {
 
     @Autowired
     private val httpClient: OkHttpClient? = null

@@ -1,6 +1,6 @@
 package freemusic.music.service.download
 
-interface MusicDownload {
+interface MusicDownloadService {
     fun getDownloadUrl(id: String, quality: String): String
 
     fun getMvUrl(id: String, quality: String): String

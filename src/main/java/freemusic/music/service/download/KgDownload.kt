@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class KgDownload : MusicDownload {
+class KgDownload : MusicDownloadService {
 
     @Autowired
     private lateinit var httpTool: HttpTool
