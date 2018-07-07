@@ -3,8 +3,8 @@ version '1.5.1'
 
 buildscript {
     ext {
-        kotlin_version = '1.2.41'
-        springBootVersion = '2.0.2.RELEASE'
+        kotlin_version = '1.2.51'
+        springBootVersion = '2.0.3.RELEASE'
     }
 
     dependencies {

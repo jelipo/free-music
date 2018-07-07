@@ -1,7 +1,7 @@
 package freemusic.music.service
 
 import freemusic.music.service.download.KgDownload
-import freemusic.music.service.download.MusicDownload
+import freemusic.music.service.download.MusicDownloadService
 import freemusic.music.service.download.QQDownload
 import freemusic.music.service.download.WyDownload
 import org.springframework.beans.factory.annotation.Autowired
@@ -21,7 +21,7 @@ class DownloadService {
     }
 
 
-    private fun getService(type: String): MusicDownload {
+    private fun getService(type: String): MusicDownloadService {
         return when (type) {
             "1" -> qqDownload
             "2" -> wyDownload
