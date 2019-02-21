@@ -4,8 +4,10 @@ import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.JSONObject
 import freemusic.music.pojo.qq.TencentMvData
 import freemusic.tool.HttpTool
+import okhttp3.Headers
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.Response
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.*
@@ -20,14 +22,22 @@ class QQDownload : MusicDownloadService {
     @Autowired
     private lateinit var httpClient: OkHttpClient
 
+    private val vHeaders = Headers.of(
+            "User-Agent", "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1",
+            "Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Connection", "keep-alive",
+            "Accept-Charset", "UTF-8,*;q=0.5",
+            "Accept-Language", "en-US,en;q=0.8",
+            "referer", "http://y.qq.com"
+    )
+
     override fun getDownloadUrl(id: String, quality: String): String {
-        val nowTime = System.currentTimeMillis()
-        val guid = Random(nowTime).nextLong()
-        val key = getKey(guid)
+        val guid = Math.round(Math.random() * (10000000000 - 1000000000) + 1000000000)
+        val key = getKey(guid, id)
         return when (quality) {
-            "s128" -> "http://ws.stream.qqmusic.qq.com/M500$id.mp3?vkey=$key&guid=$guid&fromtag=0"
-            "sogg" -> "http://ws.stream.qqmusic.qq.com/O600$id.ogg?vkey=$key&guid=$guid&fromtag=50"
-            "s320" -> "http://ws.stream.qqmusic.qq.com/M800$id.mp3?vkey=$key&guid=$guid&fromtag=50"
+            "s128" -> "http://dl.stream.qqmusic.qq.com/M500$id.mp3?vkey=$key&guid=$guid&fromtag=30"
+            "sogg" -> "http://dl.stream.qqmusic.qq.com/O600$id.ogg?vkey=$key&guid=$guid&fromtag=50"
+            "s320" -> "http://dl.stream.qqmusic.qq.com/M800$id.mp3?vkey=$key&guid=$guid&uin=1044154167&fromtag=30"
             else -> ""
         }
     }
@@ -62,12 +72,22 @@ class QQDownload : MusicDownloadService {
         return tencentMvData.vl.vi!![0].ul!!.ui!![0].url + fn + "?vkey=$vkey"
     }
 
-    private fun getKey(guid: Long): String {
-        val url = "http://base.music.qq.com/fcgi-bin/fcg_musicexpress.fcg?json=3&guid=$guid"
-        val html = httpTool.getJsonResultWithGet(url)
-        val jsonStr = html.substring(html.indexOf("(") + 1, html.lastIndexOf(")"))
-        val json = JSONObject.parseObject(jsonStr)
-        return json.getString("key")
+    private fun getKey(guid: Long, mid: String): String {
+        val url =
+                "http://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg?g_tk=0&" +
+                        "loginUin=[uin]&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&" +
+                        "needNewCode=0&cid=205361747&uin=1044154167&songmid=$mid&filename=M800$mid.mp3&" +
+                        "guid=${guid}"
+        //val url = "http://base.music.qq.com/fcgi-bin/fcg_musicexpress.fcg?guid=$guid&format=json&json=3"
+
+        val request = Request.Builder().headers(vHeaders).url(url).build()
+        val response: Response = httpClient.newCall(request).execute()
+        if (!response.isSuccessful) return ""
+        val html = response.body()!!.string()
+
+        //val jsonStr = html.substring(html.indexOf("(") + 1, html.lastIndexOf(")"))
+        val json = JSONObject.parseObject(html)
+        return json.getJSONObject("data").getJSONArray("items").getJSONObject(0).getString("vkey")
     }
 
     private fun getVkey(id: Int, videoId: String): String {
@@ -79,4 +99,6 @@ class QQDownload : MusicDownloadService {
         val json = JSONObject.parseObject(html)
         return json.getString("key")
     }
+
+
 }

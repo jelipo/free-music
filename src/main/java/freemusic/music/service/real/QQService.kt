@@ -51,9 +51,8 @@ class QQService : MusicServices {
 
     override fun getSearchResult(mainFormPojo: SearchParams): String {
         val keyword: String = URLEncoder.encode(mainFormPojo.keyword, "utf-8")
-        val url = ("http://soso.music.qq.com/fcgi-bin/search_cp?aggr=0&catZhida=0&lossless=1&sem=1&w=$keyword&n=$pagesize" +
-                "&t=0&p=${mainFormPojo.page}&remoteplace=sizer.yqqlist.song&g_tk=5381&loginUin=0&hostUin=0&format=jsonp" +
-                "&inCharset=GB2312&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0")
+        val url = "https://c.y.qq.com/soso/fcgi-bin/client_search_cp?p=${mainFormPojo.page}&n=$pagesize&w=$keyword"
+        //val url = "http://soso.music.qq.com/fcgi-bin/search_cp?aggr=0&catZhida=0&lossless=1&sem=1&w=$keyword&n=$pagesize&t=0&p=${mainFormPojo.page}&remoteplace=sizer.yqqlist.song&g_tk=5381&loginUin=0&hostUin=0&format=jsonp&inCharset=GB2312&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0"
         var result = this.httpTool.getJsonResultWithGet(url)
         result = result.substring(result.indexOf("(") + 1, result.lastIndexOf(")"))
         return result

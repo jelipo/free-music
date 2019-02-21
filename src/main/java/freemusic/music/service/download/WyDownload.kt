@@ -21,8 +21,7 @@ class WyDownload : MusicDownloadService {
     override fun getDownloadUrl(id: String, quality: String): String {
         val realQuality = "320000"
         val text = "{\"ids\":[\"$id\"],\"br\":$realQuality,\"csrf_token\":\"\"}"
-        val html: String
-        html = NetUtil.getEncHtml("http://music.163.com/weapi/song/enhance/player/url?csrf_token=", text, true)
+        val html: String = NetUtil.getEncHtml("http://music.163.com/weapi/song/enhance/player/url?csrf_token=", text, true)
         val json = JSON.parseObject(html)
         return if (json.getJSONArray("data").getJSONObject(0).getInteger("code") == 200) {
             json.getJSONArray("data").getJSONObject(0).getString("url")
